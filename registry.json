@@ -1,0 +1,338 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "uilib",
+  "homepage": "https://example.com",
+  "items": [
+    {
+      "name": "foundation",
+      "type": "registry:file",
+      "title": "Foundation",
+      "description": "Tokens, density and motion utilities. Every component depends on this.",
+      "files": [
+        {
+          "path": "registry/styles/uilib.css",
+          "type": "registry:file",
+          "target": "~/styles/uilib.css"
+        }
+      ]
+    },
+    {
+      "name": "utils",
+      "type": "registry:lib",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
+      "files": [
+        {
+          "path": "registry/lib/cn.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "name": "input-modality",
+      "type": "registry:lib",
+      "description": "Lets motion utilities skip animation during keyboard use.",
+      "files": [
+        {
+          "path": "registry/lib/input-modality.tsx",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "name": "shortcut",
+      "type": "registry:lib",
+      "description": "Show and bind keyboard shortcuts: ⌘ on Apple devices, Ctrl elsewhere.",
+      "files": [
+        {
+          "path": "registry/lib/shortcut.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "name": "button",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react",
+        "@phosphor-icons/react"
+      ],
+      "registryDependencies": [
+        "@uilib/foundation",
+        "@uilib/utils",
+        "@uilib/shortcut",
+        "@uilib/tooltip"
+      ],
+      "files": [
+        {
+          "path": "registry/ui/button.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "input",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react",
+        "@phosphor-icons/react"
+      ],
+      "registryDependencies": [
+        "@uilib/foundation",
+        "@uilib/utils",
+        "@uilib/shortcut"
+      ],
+      "files": [
+        {
+          "path": "registry/ui/input.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "field",
+      "type": "registry:ui",
+      "description": "Label, description and error wired to the control inside. Errors never shift the layout.",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "@uilib/foundation",
+        "@uilib/utils"
+      ],
+      "files": [
+        {
+          "path": "registry/ui/field.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "form",
+      "type": "registry:ui",
+      "description": "Validates every Field on submit with our messages, never the browser popups.",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "@uilib/utils",
+        "@uilib/field"
+      ],
+      "files": [
+        {
+          "path": "registry/ui/form.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "textarea",
+      "type": "registry:ui",
+      "description": "Grows with its content, up to maxRows.",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "@uilib/foundation",
+        "@uilib/utils"
+      ],
+      "files": [
+        {
+          "path": "registry/ui/textarea.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "scroll-area",
+      "type": "registry:ui",
+      "title": "Scroll area",
+      "description": "Native scrolling with a slim overlay scrollbar and edge fades.",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "@uilib/foundation",
+        "@uilib/utils"
+      ],
+      "files": [
+        {
+          "path": "registry/ui/scroll-area.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "dialog",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react",
+        "@phosphor-icons/react"
+      ],
+      "registryDependencies": [
+        "@uilib/foundation",
+        "@uilib/utils",
+        "@uilib/button",
+        "@uilib/form",
+        "@uilib/scroll-area"
+      ],
+      "files": [
+        {
+          "path": "registry/ui/dialog.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "alert-dialog",
+      "type": "registry:ui",
+      "description": "For irreversible actions. Focus starts on Cancel.",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "@uilib/foundation",
+        "@uilib/utils",
+        "@uilib/button"
+      ],
+      "files": [
+        {
+          "path": "registry/ui/alert-dialog.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "sheet",
+      "type": "registry:ui",
+      "description": "A panel from the edge of the screen, with swipe to dismiss.",
+      "dependencies": [
+        "@base-ui/react",
+        "@phosphor-icons/react"
+      ],
+      "registryDependencies": [
+        "@uilib/foundation",
+        "@uilib/utils",
+        "@uilib/dialog"
+      ],
+      "files": [
+        {
+          "path": "registry/ui/sheet.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "popover",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "@uilib/foundation",
+        "@uilib/utils",
+        "@uilib/form"
+      ],
+      "files": [
+        {
+          "path": "registry/ui/popover.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "description": "Floating panel with optional arrow, sizes and a small form that submits with Cmd/Ctrl+Enter."
+    },
+    {
+      "name": "hover-card",
+      "type": "registry:ui",
+      "title": "Hover card",
+      "description": "A preview of what a link points to, on hover or keyboard focus.",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "@uilib/foundation",
+        "@uilib/utils"
+      ],
+      "files": [
+        {
+          "path": "registry/ui/hover-card.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "dropdown-menu",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react",
+        "@phosphor-icons/react"
+      ],
+      "registryDependencies": [
+        "@uilib/foundation",
+        "@uilib/utils"
+      ],
+      "files": [
+        {
+          "path": "registry/ui/dropdown-menu.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "tooltip",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "@uilib/foundation",
+        "@uilib/utils"
+      ],
+      "files": [
+        {
+          "path": "registry/ui/tooltip.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "command",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react",
+        "@phosphor-icons/react"
+      ],
+      "registryDependencies": [
+        "@uilib/foundation",
+        "@uilib/utils",
+        "@uilib/input-modality"
+      ],
+      "files": [
+        {
+          "path": "registry/ui/command.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "text-morph",
+      "type": "registry:ui",
+      "title": "Text morph",
+      "description": "Optional: morphs text when it changes. The only item that uses a JS animation library (torph).",
+      "dependencies": [
+        "torph"
+      ],
+      "registryDependencies": [
+        "@uilib/input-modality"
+      ],
+      "files": [
+        {
+          "path": "registry/ui/text-morph.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    }
+  ]
+}

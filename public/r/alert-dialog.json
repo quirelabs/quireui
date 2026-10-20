@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "alert-dialog",
+  "description": "For irreversible actions. Focus starts on Cancel.",
+  "dependencies": [
+    "@base-ui/react"
+  ],
+  "registryDependencies": [
+    "@uilib/foundation",
+    "@uilib/utils",
+    "@uilib/button"
+  ],
+  "files": [
+    {
+      "path": "registry/ui/alert-dialog.tsx",
+      "content": "\"use client\";\n\nimport { AlertDialog as BaseAlertDialog } from \"@base-ui/react/alert-dialog\";\nimport { type ComponentProps, createContext, type RefObject, use, useRef } from \"react\";\nimport { cn } from \"@/registry/lib/cn\";\nimport { Button } from \"@/registry/ui/button\";\n\n/**\n * For irreversible actions. Focus starts on Cancel, so Enter never confirms by accident,\n * and it doesn't close on an outside click: it needs a deliberate answer.\n */\nexport const AlertDialog = BaseAlertDialog.Root;\nexport const AlertDialogTrigger = BaseAlertDialog.Trigger;\n\nconst CancelRef = createContext<RefObject<HTMLButtonElement | null> | null>(null);\n\nexport function AlertDialogContent({ className, children, ...props }: ComponentProps<typeof BaseAlertDialog.Popup>) {\n  const cancelRef = useRef<HTMLButtonElement>(null);\n  return (\n    <BaseAlertDialog.Portal>\n      <BaseAlertDialog.Backdrop className=\"motion-fade fixed inset-0 bg-backdrop\" />\n      <BaseAlertDialog.Viewport className=\"fixed inset-0 grid place-items-center p-4\">\n        <BaseAlertDialog.Popup\n          data-slot=\"alert-dialog\"\n          initialFocus={cancelRef}\n          className={cn(\n            \"motion-dialog flex w-full max-w-sm flex-col gap-2 rounded-float border border-border bg-surface p-5 text-fg shadow-float outline-none\",\n            className,\n          )}\n          {...props}\n        >\n          <CancelRef value={cancelRef}>{children}</CancelRef>\n        </BaseAlertDialog.Popup>\n      </BaseAlertDialog.Viewport>\n    </BaseAlertDialog.Portal>\n  );\n}\n\nexport function AlertDialogTitle({ className, ...props }: ComponentProps<typeof BaseAlertDialog.Title>) {\n  return <BaseAlertDialog.Title className={cn(\"text-base font-semibold\", className)} {...props} />;\n}\n\nexport function AlertDialogDescription({ className, ...props }: ComponentProps<typeof BaseAlertDialog.Description>) {\n  return <BaseAlertDialog.Description className={cn(\"text-sm text-fg-muted\", className)} {...props} />;\n}\n\nexport function AlertDialogFooter({ className, ...props }: ComponentProps<\"div\">) {\n  return <div className={cn(\"mt-4 flex justify-end gap-2\", className)} {...props} />;\n}\n\nexport function AlertDialogCancel({ children = \"Cancel\", ...props }: ComponentProps<typeof Button>) {\n  const ref = use(CancelRef);\n  return <BaseAlertDialog.Close ref={ref} render={<Button variant=\"ghost\" {...props} />}>{children}</BaseAlertDialog.Close>;\n}\n\n/** Runs onClick, then closes. Danger by default, since that is what alert dialogs are for. */\nexport function AlertDialogAction({ variant = \"danger\", ...props }: ComponentProps<typeof Button>) {\n  return <BaseAlertDialog.Close render={<Button variant={variant} {...props} />} />;\n}\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

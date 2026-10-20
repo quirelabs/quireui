@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "input-modality",
+  "description": "Lets motion utilities skip animation during keyboard use.",
+  "files": [
+    {
+      "path": "registry/lib/input-modality.tsx",
+      "content": "\"use client\";\n\nimport { useEffect, useSyncExternalStore } from \"react\";\n\n/**\n * Marks <html data-input=\"keyboard|pointer\"> so the motion utilities can skip\n * animation for keyboard-driven interaction. Someone pressing Cmd+K 200 times a\n * day should never wait for a transition.\n */\nexport function useInputModality() {\n  useEffect(() => {\n    const root = document.documentElement;\n    const set = (mode: \"keyboard\" | \"pointer\") => {\n      if (root.dataset.input !== mode) root.dataset.input = mode;\n    };\n    const onKey = (e: KeyboardEvent) => {\n      // Modifier-only presses also happen mid-mouse-use (shift-click etc).\n      if (e.key === \"Shift\" || e.key === \"Meta\" || e.key === \"Control\" || e.key === \"Alt\") return;\n      set(\"keyboard\");\n    };\n    const onPointer = () => set(\"pointer\");\n    window.addEventListener(\"keydown\", onKey, true);\n    window.addEventListener(\"pointerdown\", onPointer, true);\n    return () => {\n      window.removeEventListener(\"keydown\", onKey, true);\n      window.removeEventListener(\"pointerdown\", onPointer, true);\n    };\n  }, []);\n}\n\n/** Render once in the root layout. */\nexport function InputModality() {\n  useInputModality();\n  return null;\n}\n\nfunction subscribe(onChange: () => void) {\n  const observer = new MutationObserver(onChange);\n  observer.observe(document.documentElement, { attributes: true, attributeFilter: [\"data-input\", \"data-motion\"] });\n  return () => observer.disconnect();\n}\n\nfunction snapshot() {\n  const { input, motion } = document.documentElement.dataset;\n  return input === \"keyboard\" || motion === \"reduced\";\n}\n\n/**\n * True when JS-driven motion should be instant: keyboard use or an app-level\n * data-motion=\"reduced\". The same rule the CSS motion utilities follow.\n * (prefers-reduced-motion is left to each animation, which already checks it.)\n */\nexport function useInstantMotion() {\n  return useSyncExternalStore(subscribe, snapshot, () => false);\n}\n",
+      "type": "registry:lib"
+    }
+  ],
+  "type": "registry:lib"
+}

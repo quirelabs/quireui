@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "text-morph",
+  "title": "Text morph",
+  "description": "Optional: morphs text when it changes. The only item that uses a JS animation library (torph).",
+  "dependencies": [
+    "torph"
+  ],
+  "registryDependencies": [
+    "@uilib/input-modality"
+  ],
+  "files": [
+    {
+      "path": "registry/ui/text-morph.tsx",
+      "content": "\"use client\";\n\nimport type { ElementType } from \"react\";\nimport { TextMorph as Torph } from \"torph/react\";\nimport { useInstantMotion } from \"@/registry/lib/input-modality\";\n\n/**\n * Optional, opt-in: morphs text letter by letter when it changes. The one place the\n * library uses a JS animation library (torph), so it ships as its own item and no\n * core component depends on it.\n *\n * Timing matches the foundation tokens: --uil-duration-slow (220ms) on --uil-ease-out.\n * Instant from the keyboard or with data-motion=\"reduced\"; torph honours\n * prefers-reduced-motion on its own.\n */\nexport function TextMorph({\n  children,\n  as = \"span\",\n  className,\n}: {\n  children: string;\n  as?: ElementType;\n  className?: string;\n}) {\n  const instant = useInstantMotion();\n  return (\n    <Torph\n      as={as}\n      duration={220}\n      ease=\"cubic-bezier(0.2, 0.8, 0.2, 1)\"\n      disabled={instant}\n      respectReducedMotion\n      className={className}\n    >\n      {children}\n    </Torph>\n  );\n}\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

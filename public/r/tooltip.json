@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "tooltip",
+  "dependencies": [
+    "@base-ui/react"
+  ],
+  "registryDependencies": [
+    "@uilib/foundation",
+    "@uilib/utils"
+  ],
+  "files": [
+    {
+      "path": "registry/ui/tooltip.tsx",
+      "content": "\"use client\";\n\nimport { Tooltip as BaseTooltip } from \"@base-ui/react/tooltip\";\nimport type { ComponentProps } from \"react\";\nimport { cn } from \"@/registry/lib/cn\";\n\n/**\n * Wrap the app once. After the first tooltip opens, neighbours open instantly\n * (no delay, no animation), so scanning a toolbar never feels laggy.\n */\nexport function TooltipProvider({\n  delay = 500,\n  closeDelay = 0,\n  ...props\n}: ComponentProps<typeof BaseTooltip.Provider>) {\n  return <BaseTooltip.Provider delay={delay} closeDelay={closeDelay} {...props} />;\n}\n\nexport const Tooltip = BaseTooltip.Root;\nexport const TooltipTrigger = BaseTooltip.Trigger;\n\ntype PositionerProps = Pick<\n  ComponentProps<typeof BaseTooltip.Positioner>,\n  \"side\" | \"align\" | \"sideOffset\"\n>;\n\nexport function TooltipContent({\n  className,\n  side = \"top\",\n  align = \"center\",\n  sideOffset = 6,\n  ...props\n}: ComponentProps<typeof BaseTooltip.Popup> & PositionerProps) {\n  return (\n    <BaseTooltip.Portal>\n      <BaseTooltip.Positioner side={side} align={align} sideOffset={sideOffset} className=\"z-50\">\n        <BaseTooltip.Popup\n          data-slot=\"tooltip\"\n          className={cn(\n            \"motion-pop rounded-md bg-primary px-2 py-1 text-xs font-medium text-primary-fg [--uil-pop-scale:0.98]\",\n            className,\n          )}\n          {...props}\n        />\n      </BaseTooltip.Positioner>\n    </BaseTooltip.Portal>\n  );\n}\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

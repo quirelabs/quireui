@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "form",
+  "description": "Validates every Field on submit with our messages, never the browser popups.",
+  "dependencies": [
+    "@base-ui/react"
+  ],
+  "registryDependencies": [
+    "@uilib/utils",
+    "@uilib/field"
+  ],
+  "files": [
+    {
+      "path": "registry/ui/form.tsx",
+      "content": "\"use client\";\n\nimport { Form as BaseForm } from \"@base-ui/react/form\";\nimport type { ComponentProps } from \"react\";\nimport { cn } from \"@/registry/lib/cn\";\n\n/**\n * Validates every Field on submit and calls onFormSubmit only when all pass.\n * noValidate turns off the browser's own popups, so errors always show in FieldError\n * with our wording instead of a browser-specific bubble.\n */\nexport function Form({ className, ...props }: ComponentProps<typeof BaseForm>) {\n  return <BaseForm data-slot=\"form\" noValidate className={cn(\"flex flex-col gap-1\", className)} {...props} />;\n}\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}
