@@ -69,7 +69,7 @@ export function SheetContent({
           initialFocus={(type) =>
             type === "touch" ? true : (popupRef.current?.querySelector<HTMLElement>("input, textarea, select") ?? true)
           }
-          style={{ "--uil-sheet-hidden": l.hidden } as CSSProperties}
+          style={{ "--qui-sheet-hidden": l.hidden } as CSSProperties}
           className={cn(
             "motion-sheet relative flex flex-col overflow-hidden border-border bg-surface text-fg shadow-float outline-none",
             l.popup,

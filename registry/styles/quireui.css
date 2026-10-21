@@ -1,6 +1,6 @@
 /*
- * uilib foundation: tokens, density and motion.
- * Import once after Tailwind: @import "tailwindcss"; @import "./uilib.css";
+ * Quire UI foundation: tokens, density and motion.
+ * Import once after Tailwind: @import "tailwindcss"; @import "./quireui.css";
  * Every component reads from these variables, so restyling happens here, not per component.
  */
 
@@ -9,130 +9,130 @@
 /* Raw palette. Light steps are true greys so light mode reads as plain white; the dark
    steps keep a faint warmth, which is invisible as tint but softens large dark areas. */
 :root {
-  --uil-neutral-0: oklch(100% 0 0);
-  --uil-neutral-25: oklch(98.8% 0 0);
-  --uil-neutral-50: oklch(97.3% 0 0);
-  --uil-neutral-100: oklch(95% 0 0);
-  --uil-neutral-200: oklch(91% 0 0);
-  --uil-neutral-300: oklch(85% 0 0);
-  --uil-neutral-400: oklch(70% 0 0);
-  --uil-neutral-500: oklch(56% 0 0);
-  --uil-neutral-600: oklch(45% 0 0);
-  --uil-neutral-700: oklch(35% 0.012 85);
-  --uil-neutral-800: oklch(26% 0.01 85);
-  --uil-neutral-850: oklch(22% 0.009 85);
-  --uil-neutral-900: oklch(18.5% 0.008 85);
-  --uil-neutral-950: oklch(14.5% 0.007 85);
-  --uil-red-500: oklch(58% 0.19 30);
-  --uil-red-400: oklch(66% 0.17 30);
+  --qui-neutral-0: oklch(100% 0 0);
+  --qui-neutral-25: oklch(98.8% 0 0);
+  --qui-neutral-50: oklch(97.3% 0 0);
+  --qui-neutral-100: oklch(95% 0 0);
+  --qui-neutral-200: oklch(91% 0 0);
+  --qui-neutral-300: oklch(85% 0 0);
+  --qui-neutral-400: oklch(70% 0 0);
+  --qui-neutral-500: oklch(56% 0 0);
+  --qui-neutral-600: oklch(45% 0 0);
+  --qui-neutral-700: oklch(35% 0.012 85);
+  --qui-neutral-800: oklch(26% 0.01 85);
+  --qui-neutral-850: oklch(22% 0.009 85);
+  --qui-neutral-900: oklch(18.5% 0.008 85);
+  --qui-neutral-950: oklch(14.5% 0.007 85);
+  --qui-red-500: oklch(58% 0.19 30);
+  --qui-red-400: oklch(66% 0.17 30);
 }
 
 /* Semantic tokens. Components only ever use these. */
 :root {
-  --uil-bg: var(--uil-neutral-0);
-  --uil-surface: var(--uil-neutral-0);
-  --uil-surface-muted: var(--uil-neutral-50);
-  --uil-surface-hover: var(--uil-neutral-100);
-  --uil-surface-active: var(--uil-neutral-200);
-  --uil-fg: var(--uil-neutral-950);
-  --uil-fg-muted: var(--uil-neutral-600);
-  --uil-fg-subtle: var(--uil-neutral-500);
-  --uil-border: var(--uil-neutral-200);
-  --uil-border-strong: var(--uil-neutral-300);
-  --uil-primary: var(--uil-neutral-900);
-  --uil-primary-hover: var(--uil-neutral-800);
-  --uil-primary-fg: var(--uil-neutral-25);
-  --uil-danger: var(--uil-red-500);
-  --uil-danger-fg: var(--uil-neutral-0);
-  --uil-ring: var(--uil-neutral-950);
-  --uil-backdrop: oklch(14.5% 0 0 / 0.32);
+  --qui-bg: var(--qui-neutral-0);
+  --qui-surface: var(--qui-neutral-0);
+  --qui-surface-muted: var(--qui-neutral-50);
+  --qui-surface-hover: var(--qui-neutral-100);
+  --qui-surface-active: var(--qui-neutral-200);
+  --qui-fg: var(--qui-neutral-950);
+  --qui-fg-muted: var(--qui-neutral-600);
+  --qui-fg-subtle: var(--qui-neutral-500);
+  --qui-border: var(--qui-neutral-200);
+  --qui-border-strong: var(--qui-neutral-300);
+  --qui-primary: var(--qui-neutral-900);
+  --qui-primary-hover: var(--qui-neutral-800);
+  --qui-primary-fg: var(--qui-neutral-25);
+  --qui-danger: var(--qui-red-500);
+  --qui-danger-fg: var(--qui-neutral-0);
+  --qui-ring: var(--qui-neutral-950);
+  --qui-backdrop: oklch(14.5% 0 0 / 0.32);
   /* The only shadow in the system: floating layers need depth to separate from content. */
-  --uil-shadow-float: 0 8px 24px -10px oklch(14.5% 0.007 85 / 0.18),
+  --qui-shadow-float: 0 8px 24px -10px oklch(14.5% 0.007 85 / 0.18),
     0 2px 6px -2px oklch(14.5% 0.007 85 / 0.06);
 }
 
 .dark {
-  --uil-bg: var(--uil-neutral-950);
-  --uil-surface: var(--uil-neutral-900);
-  --uil-surface-muted: var(--uil-neutral-900);
-  --uil-surface-hover: var(--uil-neutral-850);
-  --uil-surface-active: var(--uil-neutral-800);
-  --uil-fg: var(--uil-neutral-50);
-  --uil-fg-muted: var(--uil-neutral-400);
-  --uil-fg-subtle: var(--uil-neutral-500);
-  --uil-border: var(--uil-neutral-800);
-  --uil-border-strong: var(--uil-neutral-700);
-  --uil-primary: var(--uil-neutral-50);
-  --uil-primary-hover: var(--uil-neutral-200);
-  --uil-primary-fg: var(--uil-neutral-950);
-  --uil-danger: var(--uil-red-400);
-  --uil-ring: var(--uil-neutral-50);
-  --uil-backdrop: oklch(0% 0 0 / 0.6);
-  --uil-shadow-float: 0 8px 24px -8px oklch(0% 0 0 / 0.6);
+  --qui-bg: var(--qui-neutral-950);
+  --qui-surface: var(--qui-neutral-900);
+  --qui-surface-muted: var(--qui-neutral-900);
+  --qui-surface-hover: var(--qui-neutral-850);
+  --qui-surface-active: var(--qui-neutral-800);
+  --qui-fg: var(--qui-neutral-50);
+  --qui-fg-muted: var(--qui-neutral-400);
+  --qui-fg-subtle: var(--qui-neutral-500);
+  --qui-border: var(--qui-neutral-800);
+  --qui-border-strong: var(--qui-neutral-700);
+  --qui-primary: var(--qui-neutral-50);
+  --qui-primary-hover: var(--qui-neutral-200);
+  --qui-primary-fg: var(--qui-neutral-950);
+  --qui-danger: var(--qui-red-400);
+  --qui-ring: var(--qui-neutral-50);
+  --qui-backdrop: oklch(0% 0 0 / 0.6);
+  --qui-shadow-float: 0 8px 24px -8px oklch(0% 0 0 / 0.6);
   color-scheme: dark;
 }
 
 /* Density. Set data-density on any container; descendants resize without new classes. */
 :root,
 [data-density="default"] {
-  --uil-control-h: 2rem;
-  --uil-control-px: 0.75rem;
-  --uil-item-h: 2rem;
-  --uil-text: 0.875rem;
+  --qui-control-h: 2rem;
+  --qui-control-px: 0.75rem;
+  --qui-item-h: 2rem;
+  --qui-text: 0.875rem;
 }
 [data-density="compact"] {
-  --uil-control-h: 1.75rem;
-  --uil-control-px: 0.625rem;
-  --uil-item-h: 1.75rem;
-  --uil-text: 0.8125rem;
+  --qui-control-h: 1.75rem;
+  --qui-control-px: 0.625rem;
+  --qui-item-h: 1.75rem;
+  --qui-text: 0.8125rem;
 }
 [data-density="comfortable"] {
-  --uil-control-h: 2.5rem;
-  --uil-control-px: 1rem;
-  --uil-item-h: 2.25rem;
-  --uil-text: 0.9375rem;
+  --qui-control-h: 2.5rem;
+  --qui-control-px: 1rem;
+  --qui-item-h: 2.25rem;
+  --qui-text: 0.9375rem;
 }
 /* Touch needs real targets no matter the density. */
 @media (pointer: coarse) {
   :root,
   [data-density] {
-    --uil-control-h: 2.75rem;
-    --uil-item-h: 2.75rem;
+    --qui-control-h: 2.75rem;
+    --qui-item-h: 2.75rem;
   }
 }
 
-/* Motion tokens. Nothing in the core goes above --uil-duration-slow. */
+/* Motion tokens. Nothing in the core goes above --qui-duration-slow. */
 :root {
-  --uil-duration-fast: 120ms;
-  --uil-duration-base: 160ms;
-  --uil-duration-slow: 220ms;
+  --qui-duration-fast: 120ms;
+  --qui-duration-base: 160ms;
+  --qui-duration-slow: 220ms;
   /* Exits run at ~0.7x so dismissing never feels slower than opening. */
-  --uil-duration-exit: 110ms;
-  --uil-ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
-  --uil-ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
-  --uil-pop-scale: 0.96;
-  --uil-pop-shift: 4px;
+  --qui-duration-exit: 110ms;
+  --qui-ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --qui-ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --qui-pop-scale: 0.96;
+  --qui-pop-shift: 4px;
 }
 
 @theme inline {
-  --color-bg: var(--uil-bg);
-  --color-surface: var(--uil-surface);
-  --color-surface-muted: var(--uil-surface-muted);
-  --color-surface-hover: var(--uil-surface-hover);
-  --color-surface-active: var(--uil-surface-active);
-  --color-fg: var(--uil-fg);
-  --color-fg-muted: var(--uil-fg-muted);
-  --color-fg-subtle: var(--uil-fg-subtle);
-  --color-border: var(--uil-border);
-  --color-border-strong: var(--uil-border-strong);
-  --color-primary: var(--uil-primary);
-  --color-primary-hover: var(--uil-primary-hover);
-  --color-primary-fg: var(--uil-primary-fg);
-  --color-danger: var(--uil-danger);
-  --color-danger-fg: var(--uil-danger-fg);
-  --color-ring: var(--uil-ring);
-  --color-backdrop: var(--uil-backdrop);
-  --shadow-float: var(--uil-shadow-float);
+  --color-bg: var(--qui-bg);
+  --color-surface: var(--qui-surface);
+  --color-surface-muted: var(--qui-surface-muted);
+  --color-surface-hover: var(--qui-surface-hover);
+  --color-surface-active: var(--qui-surface-active);
+  --color-fg: var(--qui-fg);
+  --color-fg-muted: var(--qui-fg-muted);
+  --color-fg-subtle: var(--qui-fg-subtle);
+  --color-border: var(--qui-border);
+  --color-border-strong: var(--qui-border-strong);
+  --color-primary: var(--qui-primary);
+  --color-primary-hover: var(--qui-primary-hover);
+  --color-primary-fg: var(--qui-primary-fg);
+  --color-danger: var(--qui-danger);
+  --color-danger-fg: var(--qui-danger-fg);
+  --color-ring: var(--qui-ring);
+  --color-backdrop: var(--qui-backdrop);
+  --shadow-float: var(--qui-shadow-float);
   --radius-control: 0.5rem;
   --radius-float: 0.75rem;
 }
@@ -148,15 +148,15 @@
 @utility motion-pop {
   transform-origin: var(--transform-origin, center);
   transition-property: opacity, scale;
-  transition-duration: var(--uil-duration-base);
-  transition-timing-function: var(--uil-ease-out);
+  transition-duration: var(--qui-duration-base);
+  transition-timing-function: var(--qui-ease-out);
   &[data-starting-style],
   &[data-ending-style] {
     opacity: 0;
-    scale: var(--uil-pop-scale);
+    scale: var(--qui-pop-scale);
   }
   &[data-ending-style] {
-    transition-duration: var(--uil-duration-exit);
+    transition-duration: var(--qui-duration-exit);
   }
   &[data-instant],
   :root[data-input="keyboard"] & {
@@ -177,16 +177,16 @@
 /* Dialogs: a small lift instead of a zoom; large surfaces that scale look sluggish. */
 @utility motion-dialog {
   transition-property: opacity, scale, translate;
-  transition-duration: var(--uil-duration-slow);
-  transition-timing-function: var(--uil-ease-out);
+  transition-duration: var(--qui-duration-slow);
+  transition-timing-function: var(--qui-ease-out);
   &[data-starting-style],
   &[data-ending-style] {
     opacity: 0;
     scale: 0.98;
-    translate: 0 var(--uil-pop-shift);
+    translate: 0 var(--qui-pop-shift);
   }
   &[data-ending-style] {
-    transition-duration: var(--uil-duration-exit);
+    transition-duration: var(--qui-duration-exit);
   }
   :root[data-input="keyboard"] & {
     transition-duration: 0ms;
@@ -206,20 +206,20 @@
 }
 
 /*
- * Sheets: slide in from an edge set by --uil-sheet-hidden (e.g. translateX(100%)) and
+ * Sheets: slide in from an edge set by --qui-sheet-hidden (e.g. translateX(100%)) and
  * follow the finger while swiping (Base UI Drawer's swipe variables).
  */
 @utility motion-sheet {
   transform: translate(var(--drawer-swipe-movement-x, 0px), var(--drawer-swipe-movement-y, 0px));
   transition-property: transform, opacity;
-  transition-duration: var(--uil-duration-slow);
-  transition-timing-function: var(--uil-ease-out);
+  transition-duration: var(--qui-duration-slow);
+  transition-timing-function: var(--qui-ease-out);
   &[data-starting-style],
   &[data-ending-style] {
-    transform: var(--uil-sheet-hidden);
+    transform: var(--qui-sheet-hidden);
   }
   &[data-ending-style] {
-    transition-duration: var(--uil-duration-exit);
+    transition-duration: var(--qui-duration-exit);
   }
   &[data-swiping] {
     transition-duration: 0ms;
@@ -244,14 +244,14 @@
 /* Backdrops and anything that only needs opacity. */
 @utility motion-fade {
   transition-property: opacity;
-  transition-duration: var(--uil-duration-base);
-  transition-timing-function: var(--uil-ease-out);
+  transition-duration: var(--qui-duration-base);
+  transition-timing-function: var(--qui-ease-out);
   &[data-starting-style],
   &[data-ending-style] {
     opacity: 0;
   }
   &[data-ending-style] {
-    transition-duration: var(--uil-duration-exit);
+    transition-duration: var(--qui-duration-exit);
   }
   :root[data-input="keyboard"] & {
     transition-duration: 0ms;
@@ -261,8 +261,8 @@
 /* Hover and press feedback. Paint-only properties so it can never shift layout. */
 @utility motion-control {
   transition-property: color, background-color, border-color, box-shadow, scale;
-  transition-duration: var(--uil-duration-fast);
-  transition-timing-function: var(--uil-ease-out);
+  transition-duration: var(--qui-duration-fast);
+  transition-timing-function: var(--qui-ease-out);
 }
 
 /*
@@ -272,8 +272,8 @@
  */
 @utility motion-swap {
   transition-property: opacity, translate;
-  transition-duration: var(--uil-duration-fast);
-  transition-timing-function: var(--uil-ease-out);
+  transition-duration: var(--qui-duration-fast);
+  transition-timing-function: var(--qui-ease-out);
   &[data-swap="out"] {
     opacity: 0;
     translate: 0 0.3em;
@@ -294,15 +294,15 @@
 /* Inline messages under a control (field errors, hints): a short drop from the control. */
 @utility motion-message {
   transition-property: opacity, translate;
-  transition-duration: var(--uil-duration-fast);
-  transition-timing-function: var(--uil-ease-out);
+  transition-duration: var(--qui-duration-fast);
+  transition-timing-function: var(--qui-ease-out);
   &[data-starting-style],
   &[data-ending-style] {
     opacity: 0;
     translate: 0 -0.25em;
   }
   &[data-ending-style] {
-    transition-duration: var(--uil-duration-exit);
+    transition-duration: var(--qui-duration-exit);
   }
   :root[data-input="keyboard"] & {
     transition-duration: 0ms;
@@ -324,7 +324,7 @@
   outline: 2px solid transparent;
   outline-offset: 2px;
   &:focus-visible {
-    outline-color: var(--uil-ring);
+    outline-color: var(--qui-ring);
   }
 }
 

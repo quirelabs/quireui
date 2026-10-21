@@ -107,7 +107,7 @@ export function Command({
                         item.onSelect?.();
                         onRun?.(item);
                       }}
-                      className="flex h-(--uil-item-h) cursor-default select-none items-center gap-2 rounded-md px-2 text-(length:--uil-text) outline-none [scroll-margin-block:0.25rem] data-[highlighted]:bg-surface-hover [&_svg]:size-4 [&_svg]:shrink-0 [&_svg]:text-fg-muted"
+                      className="flex h-(--qui-item-h) cursor-default select-none items-center gap-2 rounded-md px-2 text-(length:--qui-text) outline-none [scroll-margin-block:0.25rem] data-[highlighted]:bg-surface-hover [&_svg]:size-4 [&_svg]:shrink-0 [&_svg]:text-fg-muted"
                     >
                       {item.icon}
                       <span className="min-w-0 flex-1 truncate">{item.label}</span>

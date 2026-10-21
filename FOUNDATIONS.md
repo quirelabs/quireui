@@ -12,9 +12,9 @@ Motion exists to explain where something came from and that an action registered
 | --- | --- |
 | **The more often something is used, the less it animates.** Menus, tooltips, tabs and the command palette are near instant. Rare moments (onboarding, empty states, success) may be expressive. | Core components only use the `motion-*` utilities. Expressive motion lives in Pro blocks. |
 | **Keyboard input is never animated.** Opening the palette with Cmd+K or closing with Esc is instant. | `<InputModality />` sets `html[data-input="keyboard"]`, and every `motion-*` utility drops to 0ms under it. |
-| **Durations are tokens.** `fast 120ms`, `base 160ms`, `slow 220ms`, `exit 110ms`. Nothing in the core exceeds 220ms. | `--uil-duration-*` in `uilib.css`. |
-| **Exits are faster than entrances.** | Every `motion-*` utility switches to `--uil-duration-exit` on `[data-ending-style]`. |
-| **Ease out, never ease in.** Ease-in makes UI feel like it hesitates. | `--uil-ease-out` is the only curve the utilities use. |
+| **Durations are tokens.** `fast 120ms`, `base 160ms`, `slow 220ms`, `exit 110ms`. Nothing in the core exceeds 220ms. | `--qui-duration-*` in `quireui.css`. |
+| **Exits are faster than entrances.** | Every `motion-*` utility switches to `--qui-duration-exit` on `[data-ending-style]`. |
+| **Ease out, never ease in.** Ease-in makes UI feel like it hesitates. | `--qui-ease-out` is the only curve the utilities use. |
 | **Only `opacity`, `scale` and `translate`.** Never width, height, top or left. | Utilities only list compositor-friendly properties. |
 | **Popups grow from their trigger.** Start at 0.96 scale, never 0. | `motion-pop` uses Base UI's `--transform-origin`. |
 | **Everything is interruptible.** Toggling quickly reverses smoothly. | CSS transitions only, no keyframes, using Base UI's `data-starting-style` and `data-ending-style`. |
@@ -24,7 +24,7 @@ Motion exists to explain where something came from and that an action registered
 
 The core ships with **no JS animation library**. Two opt-in exceptions, never required by a core component:
 
-- `@uilib/text-morph` (torph) morphs text letter by letter. It uses the foundation timing (220ms, `--uil-ease-out`) and the same instant rules.
+- `@quireui/text-morph` (torph) morphs text letter by letter. It uses the foundation timing (220ms, `--qui-ease-out`) and the same instant rules.
 - Pro blocks may use Motion where springs or layout animation genuinely help.
 
 ### Motion utilities
@@ -70,9 +70,9 @@ Touch devices (`pointer: coarse`) always get 44px targets, whatever the density.
 
 Three layers. Components only touch the semantic layer.
 
-1. **Raw:** `--uil-neutral-*`, `--uil-red-*`
-2. **Semantic:** `--uil-bg`, `--uil-surface`, `--uil-fg-muted`, `--uil-border`, `--uil-primary`... exposed to Tailwind as `bg-surface`, `text-fg-muted` and so on.
-3. **Component:** density variables such as `--uil-control-h`.
+1. **Raw:** `--qui-neutral-*`, `--qui-red-*`
+2. **Semantic:** `--qui-bg`, `--qui-surface`, `--qui-fg-muted`, `--qui-border`, `--qui-primary`... exposed to Tailwind as `bg-surface`, `text-fg-muted` and so on.
+3. **Component:** density variables such as `--qui-control-h`.
 
 Dark mode is a token swap via the `.dark` class. Components never contain `dark:` classes.
 

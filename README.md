@@ -1,4 +1,4 @@
-# uilib
+# Quire UI
 
 > Placeholder name. The final name is not decided yet.
 
@@ -13,7 +13,7 @@ Add the registry to `components.json`:
 ```json
 {
   "registries": {
-    "@uilib": "https://example.com/r/{name}.json"
+    "@quireui": "https://example.com/r/{name}.json"
   }
 }
 ```
@@ -21,14 +21,14 @@ Add the registry to `components.json`:
 Then add components:
 
 ```bash
-npx shadcn@latest add @uilib/button @uilib/dialog
+npx shadcn@latest add @quireui/button @quireui/dialog
 ```
 
 Import the foundation after Tailwind and render `<InputModality />` once in your root layout:
 
 ```css
 @import "tailwindcss";
-@import "./styles/uilib.css";
+@import "./styles/quireui.css";
 ```
 
 ## Components

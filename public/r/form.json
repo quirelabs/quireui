@@ -6,8 +6,8 @@
     "@base-ui/react"
   ],
   "registryDependencies": [
-    "@uilib/utils",
-    "@uilib/field"
+    "@quireui/utils",
+    "@quireui/field"
   ],
   "files": [
     {

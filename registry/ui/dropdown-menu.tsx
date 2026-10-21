@@ -46,7 +46,7 @@ export function DropdownMenuContent({
 
 // No hover transition on items: highlight must track the pointer and arrow keys 1:1.
 const item =
-  "flex h-(--uil-item-h) cursor-default select-none items-center gap-2 rounded-md px-2 text-(length:--uil-text) outline-none data-[highlighted]:bg-surface-hover data-[disabled]:opacity-50 [&_svg]:size-4 [&_svg]:shrink-0 [&_svg]:text-fg-muted";
+  "flex h-(--qui-item-h) cursor-default select-none items-center gap-2 rounded-md px-2 text-(length:--qui-text) outline-none data-[highlighted]:bg-surface-hover data-[disabled]:opacity-50 [&_svg]:size-4 [&_svg]:shrink-0 [&_svg]:text-fg-muted";
 
 export function DropdownMenuItem({
   className,

@@ -61,7 +61,7 @@ export function CloseGuardBar() {
   return (
     <div
       role="alert"
-      className="absolute inset-x-0 bottom-0 z-10 flex items-center gap-2 border-t border-border bg-surface px-5 py-3 text-sm transition-[opacity,translate] duration-(--uil-duration-fast) ease-(--uil-ease-out) starting:translate-y-2 starting:opacity-0"
+      className="absolute inset-x-0 bottom-0 z-10 flex items-center gap-2 border-t border-border bg-surface px-5 py-3 text-sm transition-[opacity,translate] duration-(--qui-duration-fast) ease-(--qui-ease-out) starting:translate-y-2 starting:opacity-0"
     >
       <span className="mr-auto font-medium">{guard.message}</span>
       {/* biome-ignore lint/a11y/noAutofocus: the question needs focus so Enter keeps editing, never discards */}
@@ -135,7 +135,7 @@ export function DialogContent({
             "motion-dialog relative flex max-h-[min(85dvh,48rem)] w-full flex-col overflow-hidden rounded-float border border-border bg-surface text-fg shadow-float outline-none",
             // A dialog opened on top pushes this one back a step.
             "[scale:calc(1-0.04*var(--nested-dialogs,0))] [translate:0_calc(-0.75rem*var(--nested-dialogs,0))]",
-            "after:pointer-events-none after:absolute after:inset-0 after:bg-fg/5 after:opacity-0 after:transition-opacity after:duration-(--uil-duration-base) data-[nested-dialog-open]:after:opacity-100",
+            "after:pointer-events-none after:absolute after:inset-0 after:bg-fg/5 after:opacity-0 after:transition-opacity after:duration-(--qui-duration-base) data-[nested-dialog-open]:after:opacity-100",
             sizes[size],
             className,
           )}

@@ -1,6 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry.json",
-  "name": "uilib",
+  "name": "quireui",
   "homepage": "https://example.com",
   "items": [
     {
@@ -10,9 +10,9 @@
       "description": "Tokens, density and motion utilities. Every component depends on this.",
       "files": [
         {
-          "path": "registry/styles/uilib.css",
+          "path": "registry/styles/quireui.css",
           "type": "registry:file",
-          "target": "~/styles/uilib.css"
+          "target": "~/styles/quireui.css"
         }
       ]
     },
@@ -60,10 +60,10 @@
         "@phosphor-icons/react"
       ],
       "registryDependencies": [
-        "@uilib/foundation",
-        "@uilib/utils",
-        "@uilib/shortcut",
-        "@uilib/tooltip"
+        "@quireui/foundation",
+        "@quireui/utils",
+        "@quireui/shortcut",
+        "@quireui/tooltip"
       ],
       "files": [
         {
@@ -80,9 +80,9 @@
         "@phosphor-icons/react"
       ],
       "registryDependencies": [
-        "@uilib/foundation",
-        "@uilib/utils",
-        "@uilib/shortcut"
+        "@quireui/foundation",
+        "@quireui/utils",
+        "@quireui/shortcut"
       ],
       "files": [
         {
@@ -99,8 +99,8 @@
         "@base-ui/react"
       ],
       "registryDependencies": [
-        "@uilib/foundation",
-        "@uilib/utils"
+        "@quireui/foundation",
+        "@quireui/utils"
       ],
       "files": [
         {
@@ -117,8 +117,8 @@
         "@base-ui/react"
       ],
       "registryDependencies": [
-        "@uilib/utils",
-        "@uilib/field"
+        "@quireui/utils",
+        "@quireui/field"
       ],
       "files": [
         {
@@ -135,8 +135,8 @@
         "@base-ui/react"
       ],
       "registryDependencies": [
-        "@uilib/foundation",
-        "@uilib/utils"
+        "@quireui/foundation",
+        "@quireui/utils"
       ],
       "files": [
         {
@@ -154,8 +154,8 @@
         "@base-ui/react"
       ],
       "registryDependencies": [
-        "@uilib/foundation",
-        "@uilib/utils"
+        "@quireui/foundation",
+        "@quireui/utils"
       ],
       "files": [
         {
@@ -172,11 +172,11 @@
         "@phosphor-icons/react"
       ],
       "registryDependencies": [
-        "@uilib/foundation",
-        "@uilib/utils",
-        "@uilib/button",
-        "@uilib/form",
-        "@uilib/scroll-area"
+        "@quireui/foundation",
+        "@quireui/utils",
+        "@quireui/button",
+        "@quireui/form",
+        "@quireui/scroll-area"
       ],
       "files": [
         {
@@ -193,9 +193,9 @@
         "@base-ui/react"
       ],
       "registryDependencies": [
-        "@uilib/foundation",
-        "@uilib/utils",
-        "@uilib/button"
+        "@quireui/foundation",
+        "@quireui/utils",
+        "@quireui/button"
       ],
       "files": [
         {
@@ -213,9 +213,9 @@
         "@phosphor-icons/react"
       ],
       "registryDependencies": [
-        "@uilib/foundation",
-        "@uilib/utils",
-        "@uilib/dialog"
+        "@quireui/foundation",
+        "@quireui/utils",
+        "@quireui/dialog"
       ],
       "files": [
         {
@@ -231,9 +231,9 @@
         "@base-ui/react"
       ],
       "registryDependencies": [
-        "@uilib/foundation",
-        "@uilib/utils",
-        "@uilib/form"
+        "@quireui/foundation",
+        "@quireui/utils",
+        "@quireui/form"
       ],
       "files": [
         {
@@ -252,8 +252,8 @@
         "@base-ui/react"
       ],
       "registryDependencies": [
-        "@uilib/foundation",
-        "@uilib/utils"
+        "@quireui/foundation",
+        "@quireui/utils"
       ],
       "files": [
         {
@@ -270,8 +270,8 @@
         "@phosphor-icons/react"
       ],
       "registryDependencies": [
-        "@uilib/foundation",
-        "@uilib/utils"
+        "@quireui/foundation",
+        "@quireui/utils"
       ],
       "files": [
         {
@@ -287,8 +287,8 @@
         "@base-ui/react"
       ],
       "registryDependencies": [
-        "@uilib/foundation",
-        "@uilib/utils"
+        "@quireui/foundation",
+        "@quireui/utils"
       ],
       "files": [
         {
@@ -305,9 +305,9 @@
         "@phosphor-icons/react"
       ],
       "registryDependencies": [
-        "@uilib/foundation",
-        "@uilib/utils",
-        "@uilib/input-modality"
+        "@quireui/foundation",
+        "@quireui/utils",
+        "@quireui/input-modality"
       ],
       "files": [
         {
@@ -325,7 +325,7 @@
         "torph"
       ],
       "registryDependencies": [
-        "@uilib/input-modality"
+        "@quireui/input-modality"
       ],
       "files": [
         {

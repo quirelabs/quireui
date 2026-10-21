@@ -9,7 +9,7 @@ import { useInstantMotion } from "@/registry/lib/input-modality";
  * library uses a JS animation library (torph), so it ships as its own item and no
  * core component depends on it.
  *
- * Timing matches the foundation tokens: --uil-duration-slow (220ms) on --uil-ease-out.
+ * Timing matches the foundation tokens: --qui-duration-slow (220ms) on --qui-ease-out.
  * Instant from the keyboard or with data-motion="reduced"; torph honours
  * prefers-reduced-motion on its own.
  */

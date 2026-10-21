@@ -21,10 +21,10 @@ const variants = {
 } as const;
 
 const sizes = {
-  sm: "h-[calc(var(--uil-control-h)-0.25rem)] gap-1.5 px-2.5 text-[calc(var(--uil-text)-0.0625rem)]",
-  md: "h-(--uil-control-h) gap-2 px-(--uil-control-px) text-(length:--uil-text)",
-  lg: "h-[calc(var(--uil-control-h)+0.5rem)] gap-2 px-4 text-(length:--uil-text)",
-  icon: "size-(--uil-control-h) text-(length:--uil-text)",
+  sm: "h-[calc(var(--qui-control-h)-0.25rem)] gap-1.5 px-2.5 text-[calc(var(--qui-text)-0.0625rem)]",
+  md: "h-(--qui-control-h) gap-2 px-(--qui-control-px) text-(length:--qui-text)",
+  lg: "h-[calc(var(--qui-control-h)+0.5rem)] gap-2 px-4 text-(length:--qui-text)",
+  icon: "size-(--qui-control-h) text-(length:--qui-text)",
 } as const;
 
 export type ButtonProps = ComponentProps<typeof BaseButton> & {

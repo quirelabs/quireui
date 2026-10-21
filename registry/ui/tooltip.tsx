@@ -37,7 +37,7 @@ export function TooltipContent({
         <BaseTooltip.Popup
           data-slot="tooltip"
           className={cn(
-            "motion-pop rounded-md bg-primary px-2 py-1 text-xs font-medium text-primary-fg [--uil-pop-scale:0.98]",
+            "motion-pop rounded-md bg-primary px-2 py-1 text-xs font-medium text-primary-fg [--qui-pop-scale:0.98]",
             className,
           )}
           {...props}

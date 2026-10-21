@@ -64,7 +64,7 @@ export function Input({
         }
       }}
       className={cn(
-        "motion-control group flex h-(--uil-control-h) w-full min-w-0 cursor-text items-center gap-2 rounded-control border border-border-strong bg-surface px-(--uil-control-px) text-(length:--uil-text) text-fg",
+        "motion-control group flex h-(--qui-control-h) w-full min-w-0 cursor-text items-center gap-2 rounded-control border border-border-strong bg-surface px-(--qui-control-px) text-(length:--qui-text) text-fg",
         "hover:border-fg-subtle focus-within:border-ring focus-within:ring-1 focus-within:ring-ring",
         // Invalid wins over focus, so the error stays visible while it is being fixed.
         "has-[[aria-invalid=true]]:border-danger has-[[data-invalid]]:border-danger",
