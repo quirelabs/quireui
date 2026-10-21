@@ -13,6 +13,7 @@ import { useInstantMotion } from "@/registry/lib/input-modality";
  * Instant from the keyboard or with data-motion="reduced"; torph honours
  * prefers-reduced-motion on its own.
  */
+// no-slot: torph renders the element itself and does not forward attributes to it.
 export function TextMorph({
   children,
   as = "span",

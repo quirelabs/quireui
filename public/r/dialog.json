@@ -1,6 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "dialog",
+  "title": "Dialog",
+  "description": "Modal dialogs with sticky header and footer, an unsaved-changes guard, stacking and keyboard submit.",
   "dependencies": [
     "@base-ui/react",
     "@phosphor-icons/react"

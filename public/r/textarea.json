@@ -1,7 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "textarea",
-  "description": "Grows with its content, up to maxRows.",
+  "title": "Textarea",
+  "description": "Grows with its content, up to a limit.",
   "dependencies": [
     "@base-ui/react"
   ],

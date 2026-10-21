@@ -1,6 +1,7 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "field",
+  "title": "Field",
   "description": "Label, description and error wired to the control inside. Errors never shift the layout.",
   "dependencies": [
     "@base-ui/react"

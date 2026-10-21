@@ -1,6 +1,7 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "shortcut",
+  "title": "Shortcut",
   "description": "Show and bind keyboard shortcuts: ⌘ on Apple devices, Ctrl elsewhere.",
   "files": [
     {

@@ -1,6 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "button",
+  "title": "Button",
+  "description": "Loading without layout shift, shortcuts, tooltips and a built-in confirm step.",
   "dependencies": [
     "@base-ui/react",
     "@phosphor-icons/react"

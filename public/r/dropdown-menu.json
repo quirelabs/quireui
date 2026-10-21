@@ -1,6 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "dropdown-menu",
+  "title": "Dropdown menu",
+  "description": "Menus with instant highlights and keyboard-first behaviour.",
   "dependencies": [
     "@base-ui/react",
     "@phosphor-icons/react"

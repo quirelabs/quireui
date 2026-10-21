@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "hover-card",
   "title": "Hover card",
-  "description": "A preview of what a link points to, on hover or keyboard focus.",
+  "description": "A preview of what a link points to, so you can check without leaving the page.",
   "dependencies": [
     "@base-ui/react"
   ],

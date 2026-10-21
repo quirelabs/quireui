@@ -63,6 +63,7 @@ function Scrollbar({ orientation }: { orientation: "vertical" | "horizontal" }) 
       orientation={orientation}
       className={cn(
         // Overlay, so content never shifts. Lingers briefly after scrolling instead of flickering.
+        // motion-exception: the delayed fade-out needs its own delay, which no motion-* utility has.
         "absolute z-10 flex touch-none p-0.5 opacity-0 select-none transition-opacity delay-500 duration-(--qui-duration-base)",
         "data-[hovering]:opacity-100 data-[hovering]:delay-0 data-[scrolling]:opacity-100 data-[scrolling]:delay-0",
         vertical ? "inset-y-0 right-0 w-2.5" : "inset-x-0 bottom-0 h-2.5",
@@ -70,7 +71,7 @@ function Scrollbar({ orientation }: { orientation: "vertical" | "horizontal" }) 
     >
       <BaseScrollArea.Thumb
         className={cn(
-          "rounded-full bg-fg-subtle/40 transition-colors duration-(--qui-duration-fast) hover:bg-fg-subtle/70 active:bg-fg-subtle/80",
+          "motion-control rounded-full bg-fg-subtle/40 hover:bg-fg-subtle/70 active:bg-fg-subtle/80",
           vertical ? "w-full" : "h-full",
         )}
       />

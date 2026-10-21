@@ -19,6 +19,8 @@
     {
       "name": "utils",
       "type": "registry:lib",
+      "title": "Utils",
+      "description": "The cn helper that merges class names and resolves Tailwind conflicts.",
       "dependencies": [
         "clsx",
         "tailwind-merge"
@@ -33,6 +35,7 @@
     {
       "name": "input-modality",
       "type": "registry:lib",
+      "title": "Input modality",
       "description": "Lets motion utilities skip animation during keyboard use.",
       "files": [
         {
@@ -44,6 +47,7 @@
     {
       "name": "shortcut",
       "type": "registry:lib",
+      "title": "Shortcut",
       "description": "Show and bind keyboard shortcuts: ⌘ on Apple devices, Ctrl elsewhere.",
       "files": [
         {
@@ -55,6 +59,8 @@
     {
       "name": "button",
       "type": "registry:ui",
+      "title": "Button",
+      "description": "Loading without layout shift, shortcuts, tooltips and a built-in confirm step.",
       "dependencies": [
         "@base-ui/react",
         "@phosphor-icons/react"
@@ -75,6 +81,8 @@
     {
       "name": "input",
       "type": "registry:ui",
+      "title": "Input",
+      "description": "Text input with slots, a clear button, a focus shortcut, and fields whose errors never shift the layout.",
       "dependencies": [
         "@base-ui/react",
         "@phosphor-icons/react"
@@ -94,6 +102,7 @@
     {
       "name": "field",
       "type": "registry:ui",
+      "title": "Field",
       "description": "Label, description and error wired to the control inside. Errors never shift the layout.",
       "dependencies": [
         "@base-ui/react"
@@ -112,11 +121,13 @@
     {
       "name": "form",
       "type": "registry:ui",
+      "title": "Form",
       "description": "Validates every Field on submit with our messages, never the browser popups.",
       "dependencies": [
         "@base-ui/react"
       ],
       "registryDependencies": [
+        "@quireui/foundation",
         "@quireui/utils",
         "@quireui/field"
       ],
@@ -130,7 +141,8 @@
     {
       "name": "textarea",
       "type": "registry:ui",
-      "description": "Grows with its content, up to maxRows.",
+      "title": "Textarea",
+      "description": "Grows with its content, up to a limit.",
       "dependencies": [
         "@base-ui/react"
       ],
@@ -149,7 +161,7 @@
       "name": "scroll-area",
       "type": "registry:ui",
       "title": "Scroll area",
-      "description": "Native scrolling with a slim overlay scrollbar and edge fades.",
+      "description": "Native scrolling with a slim overlay scrollbar and soft fades at edges that have more content.",
       "dependencies": [
         "@base-ui/react"
       ],
@@ -167,6 +179,8 @@
     {
       "name": "dialog",
       "type": "registry:ui",
+      "title": "Dialog",
+      "description": "Modal dialogs with sticky header and footer, an unsaved-changes guard, stacking and keyboard submit.",
       "dependencies": [
         "@base-ui/react",
         "@phosphor-icons/react"
@@ -188,6 +202,7 @@
     {
       "name": "alert-dialog",
       "type": "registry:ui",
+      "title": "Alert dialog",
       "description": "For irreversible actions. Focus starts on Cancel.",
       "dependencies": [
         "@base-ui/react"
@@ -207,6 +222,7 @@
     {
       "name": "sheet",
       "type": "registry:ui",
+      "title": "Sheet",
       "description": "A panel from the edge of the screen, with swipe to dismiss.",
       "dependencies": [
         "@base-ui/react",
@@ -227,6 +243,8 @@
     {
       "name": "popover",
       "type": "registry:ui",
+      "title": "Popover",
+      "description": "A floating panel from its trigger, with an optional arrow, sizes and a small form.",
       "dependencies": [
         "@base-ui/react"
       ],
@@ -240,14 +258,13 @@
           "path": "registry/ui/popover.tsx",
           "type": "registry:ui"
         }
-      ],
-      "description": "Floating panel with optional arrow, sizes and a small form that submits with Cmd/Ctrl+Enter."
+      ]
     },
     {
       "name": "hover-card",
       "type": "registry:ui",
       "title": "Hover card",
-      "description": "A preview of what a link points to, on hover or keyboard focus.",
+      "description": "A preview of what a link points to, so you can check without leaving the page.",
       "dependencies": [
         "@base-ui/react"
       ],
@@ -265,6 +282,8 @@
     {
       "name": "dropdown-menu",
       "type": "registry:ui",
+      "title": "Dropdown menu",
+      "description": "Menus with instant highlights and keyboard-first behaviour.",
       "dependencies": [
         "@base-ui/react",
         "@phosphor-icons/react"
@@ -283,6 +302,8 @@
     {
       "name": "tooltip",
       "type": "registry:ui",
+      "title": "Tooltip",
+      "description": "Tooltips that open instantly once one is showing.",
       "dependencies": [
         "@base-ui/react"
       ],
@@ -300,6 +321,8 @@
     {
       "name": "command",
       "type": "registry:ui",
+      "title": "Command",
+      "description": "Cmd/Ctrl K palette built on Base UI Autocomplete. No cmdk.",
       "dependencies": [
         "@base-ui/react",
         "@phosphor-icons/react"
@@ -307,7 +330,8 @@
       "registryDependencies": [
         "@quireui/foundation",
         "@quireui/utils",
-        "@quireui/input-modality"
+        "@quireui/input-modality",
+        "@quireui/shortcut"
       ],
       "files": [
         {
@@ -320,11 +344,12 @@
       "name": "text-morph",
       "type": "registry:ui",
       "title": "Text morph",
-      "description": "Optional: morphs text when it changes. The only item that uses a JS animation library (torph).",
+      "description": "Optional. Morphs text letter by letter when it changes.",
       "dependencies": [
         "torph"
       ],
       "registryDependencies": [
+        "@quireui/foundation",
         "@quireui/input-modality"
       ],
       "files": [

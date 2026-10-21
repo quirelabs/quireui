@@ -51,6 +51,7 @@ export function SheetContent({
   className,
   children,
   showClose = true,
+  onKeyDown,
   ...props
 }: ComponentProps<typeof Drawer.Popup> & { showClose?: boolean }) {
   const side = use(SideContext);
@@ -69,6 +70,17 @@ export function SheetContent({
           initialFocus={(type) =>
             type === "touch" ? true : (popupRef.current?.querySelector<HTMLElement>("input, textarea, select") ?? true)
           }
+          onKeyDown={(event) => {
+            // Cmd/Ctrl+Enter submits a SheetForm from any field, the same as Dialog.
+            if (event.key === "Enter" && (event.metaKey || event.ctrlKey)) {
+              const form = event.currentTarget.querySelector("form");
+              if (form) {
+                event.preventDefault();
+                form.requestSubmit();
+              }
+            }
+            onKeyDown?.(event);
+          }}
           style={{ "--qui-sheet-hidden": l.hidden } as CSSProperties}
           className={cn(
             "motion-sheet relative flex flex-col overflow-hidden border-border bg-surface text-fg shadow-float outline-none",

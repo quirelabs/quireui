@@ -1,6 +1,7 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "input-modality",
+  "title": "Input modality",
   "description": "Lets motion utilities skip animation during keyboard use.",
   "files": [
     {

@@ -3,8 +3,9 @@
 import { Autocomplete } from "@base-ui/react/autocomplete";
 import { Dialog } from "@base-ui/react/dialog";
 import { MagnifyingGlassIcon } from "@phosphor-icons/react/ssr";
-import { type ReactNode, type Ref, useEffect, useEffectEvent, useId } from "react";
+import { type ReactNode, type Ref, useId } from "react";
 import { cn } from "@/registry/lib/cn";
+import { useShortcut } from "@/registry/lib/shortcut";
 
 export type CommandItem = {
   value: string;
@@ -26,21 +27,6 @@ function matches(item: CommandItem, query: string) {
     item.label.toLowerCase().includes(q) ||
     (item.keywords?.some((k) => k.toLowerCase().includes(q)) ?? false)
   );
-}
-
-/** Binds mod+key (Cmd on macOS, Ctrl elsewhere). */
-export function useHotkey(key: string, handler: () => void) {
-  const onHotkey = useEffectEvent(handler);
-  useEffect(() => {
-    const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key.toLowerCase() === key && (e.metaKey || e.ctrlKey) && !e.altKey) {
-        e.preventDefault();
-        onHotkey();
-      }
-    };
-    window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
-  }, [key]);
 }
 
 export type CommandProps = {
@@ -147,8 +133,9 @@ export function CommandPalette({
   className,
   ...commandProps
 }: CommandPaletteProps) {
-  useHotkey(hotkey ?? "", () => {
-    if (hotkey) onOpenChange(!open);
+  // The shared helper, so the palette follows the same per-platform rule as every other shortcut.
+  useShortcut(hotkey ? `mod+${hotkey}` : undefined, () => {
+    onOpenChange(!open);
   });
 
   return (

@@ -1,6 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "tooltip",
+  "title": "Tooltip",
+  "description": "Tooltips that open instantly once one is showing.",
   "dependencies": [
     "@base-ui/react"
   ],

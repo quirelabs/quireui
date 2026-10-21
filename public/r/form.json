@@ -1,11 +1,13 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "form",
+  "title": "Form",
   "description": "Validates every Field on submit with our messages, never the browser popups.",
   "dependencies": [
     "@base-ui/react"
   ],
   "registryDependencies": [
+    "@quireui/foundation",
     "@quireui/utils",
     "@quireui/field"
   ],

@@ -1,6 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "input",
+  "title": "Input",
+  "description": "Text input with slots, a clear button, a focus shortcut, and fields whose errors never shift the layout.",
   "dependencies": [
     "@base-ui/react",
     "@phosphor-icons/react"

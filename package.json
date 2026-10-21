@@ -5,6 +5,7 @@
   "type": "module",
   "license": "MIT",
   "scripts": {
+    "check": "node scripts/check.mjs",
     "typecheck": "tsc --noEmit",
     "registry:build": "shadcn build"
   },
