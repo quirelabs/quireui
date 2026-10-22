@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "switch",
+  "title": "Switch",
+  "description": "An on/off setting that takes effect at once, with a settings-row label that toggles it.",
+  "dependencies": [
+    "@base-ui/react"
+  ],
+  "registryDependencies": [
+    "@quireui/foundation",
+    "@quireui/utils"
+  ],
+  "files": [
+    {
+      "path": "registry/ui/switch.tsx",
+      "content": "\"use client\";\n\nimport { Switch as BaseSwitch } from \"@base-ui/react/switch\";\nimport { type ComponentProps, type ReactNode, useId } from \"react\";\nimport { cn } from \"@/registry/lib/cn\";\n\nexport function Switch({ className, ...props }: ComponentProps<typeof BaseSwitch.Root>) {\n  return (\n    <BaseSwitch.Root\n      data-slot=\"switch\"\n      className={cn(\n        // Follows density: as wide as a control is tall (28, 32, 40px), whole pixels at every step.\n        \"[--h:calc(var(--qui-control-h)/2+0.125rem)] motion-control focus-ring relative inline-flex h-(--h) w-(--qui-control-h) shrink-0 cursor-default items-center rounded-[5px] bg-fg-subtle/70 p-0.5\",\n        // A mid grey off track: the surface-coloured thumb stands out on it in light and dark alike.\n        \"hover:bg-fg-subtle data-[checked]:bg-primary data-[checked]:hover:bg-primary-hover\",\n        \"data-[invalid]:ring-1 data-[invalid]:ring-danger data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50\",\n        className,\n      )}\n      {...props}\n    >\n      <BaseSwitch.Thumb\n        className={cn(\n          \"motion-thumb block size-[calc(var(--h)-0.25rem)] rounded-[3px] bg-surface\",\n          // Travels the track's spare width: the track width minus its height.\n          \"data-[checked]:translate-x-[calc(var(--qui-control-h)-var(--h))] data-[checked]:bg-primary-fg\",\n        )}\n      />\n    </BaseSwitch.Root>\n  );\n}\n\n/**\n * A settings row: label and optional description on the left, the switch on the right. The\n * whole row toggles it, so the switch is never the only thing to aim for.\n */\nexport function SwitchLabel({\n  className,\n  children,\n  description,\n  ...props\n}: ComponentProps<typeof Switch> & {\n  /** A second line in a quieter colour, e.g. what turning it on does. */\n  description?: ReactNode;\n}) {\n  const descriptionId = useId();\n  return (\n    <label\n      data-slot=\"switch-label\"\n      className={cn(\n        \"flex w-full cursor-default items-start justify-between gap-4 text-(length:--qui-text) text-fg has-[[data-disabled]]:cursor-not-allowed has-[[data-disabled]]:opacity-50\",\n        className,\n      )}\n    >\n      <span className=\"flex flex-col leading-[1.5]\">\n        <span>{children}</span>\n        {description && (\n          <span id={descriptionId} className=\"text-xs text-fg-muted\">\n            {description}\n          </span>\n        )}\n      </span>\n      {/* Centred on the first line of text at every density. */}\n      <span className=\"flex h-[1.5em] shrink-0 items-center\">\n        <Switch aria-describedby={description ? descriptionId : undefined} {...props} />\n      </span>\n    </label>\n  );\n}\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

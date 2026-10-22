@@ -319,6 +319,26 @@
   }
 }
 
+/*
+ * Parts that slide between two places (switch thumbs). Moves with translate on the base
+ * duration; from the keyboard it is instant, and under reduced motion it jumps while the
+ * colour still fades, so the change stays easy to follow.
+ */
+@utility motion-thumb {
+  transition-property: translate, background-color;
+  transition-duration: var(--qui-duration-base);
+  transition-timing-function: var(--qui-ease-out);
+  :root[data-input="keyboard"] & {
+    transition-duration: 0ms;
+  }
+  :root[data-motion="reduced"] & {
+    transition-property: background-color;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    transition-property: background-color;
+  }
+}
+
 /* Shared focus ring, keyboard focus only. */
 @utility focus-ring {
   outline: 2px solid transparent;

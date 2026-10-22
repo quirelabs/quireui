@@ -418,6 +418,25 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "switch",
+      "type": "registry:ui",
+      "title": "Switch",
+      "description": "An on/off setting that takes effect at once, with a settings-row label that toggles it.",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "@quireui/foundation",
+        "@quireui/utils"
+      ],
+      "files": [
+        {
+          "path": "registry/ui/switch.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }
