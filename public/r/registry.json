@@ -456,6 +456,25 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "tabs",
+      "type": "registry:ui",
+      "title": "Tabs",
+      "description": "Switch between views of the same place, following the arrow keys without a sliding marker.",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "@quireui/foundation",
+        "@quireui/utils"
+      ],
+      "files": [
+        {
+          "path": "registry/ui/tabs.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }
