@@ -461,7 +461,7 @@
       "name": "tabs",
       "type": "registry:ui",
       "title": "Tabs",
-      "description": "Switch between views of the same place, following the arrow keys without a sliding marker.",
+      "description": "Switch between views of the same place, with a marker that slides to the chosen tab.",
       "dependencies": [
         "@base-ui/react"
       ],

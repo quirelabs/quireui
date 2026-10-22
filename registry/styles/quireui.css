@@ -339,6 +339,63 @@
   }
 }
 
+/*
+ * A marker that slides to the chosen item (the tab underline, a segmented control's raised
+ * background). Width and height animate too, which is safe here: the marker is absolutely
+ * positioned, so it never moves anything around it. Instant from the keyboard; under reduced
+ * motion it jumps.
+ */
+@utility motion-indicator {
+  transition-property: translate, width, height;
+  transition-duration: var(--qui-duration-base);
+  transition-timing-function: var(--qui-ease-out);
+  :root[data-input="keyboard"] & {
+    transition-duration: 0ms;
+  }
+  :root[data-motion="reduced"] & {
+    transition-duration: 0ms;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    transition-duration: 0ms;
+  }
+}
+
+/*
+ * Content that swaps in place (tab panels): a quick fade with a 4px shift from the side the
+ * user moved towards, set by Base UI's data-activation-direction. Reduced motion keeps the fade.
+ */
+@utility motion-panel {
+  transition-property: opacity, translate;
+  transition-duration: var(--qui-duration-base);
+  transition-timing-function: var(--qui-ease-out);
+  &[data-starting-style] {
+    opacity: 0;
+  }
+  &[data-starting-style][data-activation-direction="right"] {
+    translate: 4px 0;
+  }
+  &[data-starting-style][data-activation-direction="left"] {
+    translate: -4px 0;
+  }
+  &[data-starting-style][data-activation-direction="down"] {
+    translate: 0 4px;
+  }
+  &[data-starting-style][data-activation-direction="up"] {
+    translate: 0 -4px;
+  }
+  :root[data-input="keyboard"] & {
+    transition-duration: 0ms;
+  }
+  :root[data-motion="reduced"] &[data-starting-style] {
+    translate: 0 0;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    &[data-starting-style] {
+      translate: 0 0;
+    }
+  }
+}
+
 /* Shared focus ring, keyboard focus only. */
 @utility focus-ring {
   outline: 2px solid transparent;

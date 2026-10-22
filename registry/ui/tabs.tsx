@@ -34,6 +34,7 @@ const lists: Record<Variant, string> = {
 
 export function TabsList({
   className,
+  children,
   activateOnFocus = true,
   ...props
 }: ComponentProps<typeof BaseTabs.List>) {
@@ -49,23 +50,30 @@ export function TabsList({
         className,
       )}
       {...props}
-    />
+    >
+      {children}
+      <BaseTabs.Indicator className={indicators[variant]} />
+    </BaseTabs.List>
   );
 }
 
-// No transitions on tabs at all: FOUNDATIONS keeps tabs near instant, so the chosen tab tracks the
-// keys 1:1 instead of sliding after them.
-const tabs: Record<Variant, string> = {
+// The marker slides to the chosen tab in 160ms: enough to show where the selection went, settled
+// before the eye gets there. It sits under the labels; the inset keeps the underline off the edges.
+const indicators: Record<Variant, string> = {
   line: cn(
-    "relative h-(--qui-control-h) px-2.5 text-fg-muted hover:text-fg data-[active]:text-fg",
-    "after:absolute after:inset-x-1.5 after:bottom-0 after:h-0.5 after:rounded-full data-[active]:after:bg-primary",
-    "data-[orientation=vertical]:justify-start",
-    "data-[orientation=vertical]:after:inset-x-auto data-[orientation=vertical]:after:inset-y-1.5 data-[orientation=vertical]:after:right-0 data-[orientation=vertical]:after:h-auto data-[orientation=vertical]:after:w-0.5",
+    "motion-indicator pointer-events-none absolute bottom-0 left-0 h-0.5 rounded-full bg-primary",
+    "w-[calc(var(--active-tab-width)-0.75rem)] translate-x-[calc(var(--active-tab-left)+0.375rem)]",
+    "data-[orientation=vertical]:top-0 data-[orientation=vertical]:right-0 data-[orientation=vertical]:bottom-auto data-[orientation=vertical]:left-auto data-[orientation=vertical]:h-[calc(var(--active-tab-height)-0.75rem)] data-[orientation=vertical]:w-0.5 data-[orientation=vertical]:translate-x-0 data-[orientation=vertical]:translate-y-[calc(var(--active-tab-top)+0.375rem)]",
   ),
   contained: cn(
-    "h-[calc(var(--qui-control-h)-0.25rem)] rounded-[calc(var(--radius-control)-0.125rem)] px-2.5 text-fg-muted hover:text-fg",
-    "data-[active]:bg-surface data-[active]:text-fg data-[active]:shadow-[0_0_0_1px_var(--qui-border)]",
+    "motion-indicator pointer-events-none absolute top-0 left-0 rounded-[calc(var(--radius-control)-0.125rem)] bg-surface shadow-[0_0_0_1px_var(--qui-border)]",
+    "h-(--active-tab-height) w-(--active-tab-width) translate-x-(--active-tab-left) translate-y-(--active-tab-top)",
   ),
+};
+
+const tabs: Record<Variant, string> = {
+  line: "h-(--qui-control-h) px-2.5 data-[orientation=vertical]:justify-start",
+  contained: "h-[calc(var(--qui-control-h)-0.25rem)] px-2.5",
 };
 
 export function TabsTab({ className, ...props }: ComponentProps<typeof BaseTabs.Tab>) {
@@ -74,7 +82,8 @@ export function TabsTab({ className, ...props }: ComponentProps<typeof BaseTabs.
     <BaseTabs.Tab
       data-slot="tabs-tab"
       className={cn(
-        "focus-ring inline-flex shrink-0 cursor-default select-none items-center justify-center gap-1.5 whitespace-nowrap text-(length:--qui-text) font-medium",
+        // Above the sliding marker; the label colour follows it.
+        "motion-control focus-ring relative z-[1] inline-flex shrink-0 cursor-default select-none items-center justify-center gap-1.5 rounded-[calc(var(--radius-control)-0.125rem)] whitespace-nowrap text-(length:--qui-text) font-medium text-fg-muted hover:text-fg data-[active]:text-fg",
         "data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50 [&_svg]:size-4 [&_svg]:shrink-0",
         tabs[variant],
         className,
@@ -85,7 +94,13 @@ export function TabsTab({ className, ...props }: ComponentProps<typeof BaseTabs.
 }
 
 export function TabsPanel({ className, ...props }: ComponentProps<typeof BaseTabs.Panel>) {
-  return <BaseTabs.Panel data-slot="tabs-panel" className={cn("focus-ring min-w-0 flex-1 rounded-control", className)} {...props} />;
+  return (
+    <BaseTabs.Panel
+      data-slot="tabs-panel"
+      className={cn("motion-panel focus-ring min-w-0 flex-1 rounded-control", className)}
+      {...props}
+    />
+  );
 }
 
 /** A count next to a tab label, e.g. how many invoices are overdue. */
