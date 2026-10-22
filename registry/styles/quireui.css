@@ -403,20 +403,43 @@
  * lays out the same, it just does not move between states.
  */
 @utility motion-toast {
-  transition-property: opacity, transform, height;
+  transition-property: opacity, transform, scale, height;
   transition-duration: var(--qui-duration-slow);
   transition-timing-function: var(--qui-ease-out);
+  /* 160ms, not the usual exit: toasts are closed while you look at them, and 110ms reads as a blink. */
   &[data-ending-style] {
-    transition-duration: var(--qui-duration-exit);
+    transition-duration: var(--qui-duration-base);
   }
+  /* Fades with drag distance (60% at the 40px commit point), so you can see a release will dismiss. */
   &[data-swiping] {
     transition-property: opacity;
+    opacity: max(0.3, 1 - tan(atan2(max(var(--toast-swipe-movement-x), var(--toast-swipe-movement-y)), 100px)));
+  }
+  /* The icon stamps in after the toast lands, and again when loading turns into a result. */
+  & [data-toast-icon] {
+    transition-property: opacity, scale;
+    transition-duration: var(--qui-duration-base);
+    transition-timing-function: var(--qui-ease-out);
+    transition-delay: 60ms;
+    @starting-style {
+      opacity: 0;
+      scale: 0.5;
+    }
+  }
+  :root[data-input="keyboard"] & [data-toast-icon] {
+    transition-duration: 0ms;
   }
   :root[data-motion="reduced"] & {
     transition-property: opacity;
+    & [data-toast-icon] {
+      transition-property: opacity;
+    }
   }
   @media (prefers-reduced-motion: reduce) {
     transition-property: opacity;
+    & [data-toast-icon] {
+      transition-property: opacity;
+    }
   }
 }
 

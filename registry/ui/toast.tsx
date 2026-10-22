@@ -153,22 +153,29 @@ function ToastItem({ toast: t }: { toast: BaseToast.Root.ToastObject }) {
         // Collapsed: a deck. Each toast behind sits a little higher and smaller, at the height of
         // the front one, so the stack reads as neat paper edges.
         "[--y:calc(var(--toast-index)*var(--peek)*-1*var(--dir))] [--s:calc(1-var(--toast-index)*0.05)] h-(--toast-frontmost-height)",
-        "[transform:translateX(var(--toast-swipe-movement-x,0px))_translateY(calc(var(--y)+var(--toast-swipe-movement-y,0px)))_scale(var(--s))]",
+        "[--drift:0px] [transform:translateX(var(--toast-swipe-movement-x,0px))_translateY(calc(var(--y)+var(--drift)+var(--toast-swipe-movement-y,0px)))_scale(var(--s))]",
         // Expanded on hover or focus: a full list with its natural heights.
         "data-[expanded]:h-(--toast-height) data-[expanded]:[--s:1] data-[expanded]:[--y:calc((var(--toast-offset-y)+var(--toast-index)*var(--gap))*-1*var(--dir))]",
         // A strip in each gap keeps the pointer "on" the stack, so it does not collapse in between.
         "after:absolute after:inset-x-0 after:top-full after:h-(--gap) group-data-[side=top]/toaster:after:top-auto group-data-[side=top]/toaster:after:bottom-full",
-        // In from the edge, out with a short fade; swiped toasts leave in the swipe's direction.
+        // In from the edge. Closed, it sinks back and shrinks a little, like it is put away; the
+        // stack keeps its place, so an expanded toast leaves from where it is.
         "data-[starting-style]:[--y:calc(110%*var(--dir))] data-[starting-style]:opacity-0",
-        "data-[ending-style]:opacity-0 data-[ending-style]:[--y:calc(var(--toast-index)*var(--peek)*-1*var(--dir)+12px*var(--dir))]",
-        "data-[ending-style]:data-[swipe-direction=right]:[transform:translateX(calc(var(--toast-swipe-movement-x)+110%))_translateY(var(--y))]",
-        "data-[ending-style]:data-[swipe-direction=down]:[--y:calc(var(--toast-swipe-movement-y)+110%)]",
+        "data-[ending-style]:opacity-0 data-[ending-style]:not-data-[swipe-direction]:[--drift:calc(8px*var(--dir))] data-[ending-style]:not-data-[swipe-direction]:scale-[0.96]",
+        // Swiped, it carries on in the swipe's direction instead.
+        "data-[ending-style]:data-[swipe-direction=right]:[transform:translateX(calc(var(--toast-swipe-movement-x)+110%))_translateY(var(--y))_scale(var(--s))]",
+        "data-[ending-style]:data-[swipe-direction=down]:[--drift:110%]",
         "data-[limited]:opacity-0",
       )}
     >
       {/* Toasts behind the front one hide their text, so the deck reads as clean edges. */}
       <BaseToast.Content className="group/toast flex h-full items-start gap-2.5 overflow-hidden p-3 pr-8 motion-fade data-[behind]:not-data-[expanded]:opacity-0">
-        {icon && <span className="flex h-5 shrink-0 items-center [&_svg]:size-4">{icon}</span>}
+        {icon && (
+          // Keyed by type, so a loading toast that resolves stamps its new icon in.
+          <span key={t.type} data-toast-icon className="flex h-5 shrink-0 items-center [&_svg]:size-4">
+            {icon}
+          </span>
+        )}
         <div className="flex min-w-0 flex-1 flex-col gap-0.5">
           <BaseToast.Title className="text-sm leading-5 font-medium" />
           {t.description && <BaseToast.Description className="text-sm leading-5 text-fg-muted" />}
@@ -176,7 +183,7 @@ function ToastItem({ toast: t }: { toast: BaseToast.Root.ToastObject }) {
         {t.actionProps && <BaseToast.Action render={<Button size="sm" className="-my-0.5" />} />}
         <BaseToast.Close
           aria-label="Close"
-          className="motion-control focus-ring absolute top-2.5 right-2.5 grid size-5 place-items-center rounded-sm text-fg-subtle opacity-0 group-hover/toast:opacity-100 hover:bg-surface-hover hover:text-fg focus-visible:opacity-100 pointer-coarse:opacity-100 [&_svg]:size-3.5"
+          className="motion-control focus-ring absolute top-2.5 right-2.5 grid size-5 active:scale-90 place-items-center rounded-sm text-fg-subtle opacity-0 group-hover/toast:opacity-100 hover:bg-surface-hover hover:text-fg focus-visible:opacity-100 pointer-coarse:opacity-100 [&_svg]:size-3.5"
         >
           <XIcon />
         </BaseToast.Close>
