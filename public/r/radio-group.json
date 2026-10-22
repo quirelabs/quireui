@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "radio-group",
+  "title": "Radio group",
+  "description": "Pick exactly one option that stays visible, with arrow keys between them and a label row as the hit area.",
+  "dependencies": [
+    "@base-ui/react"
+  ],
+  "registryDependencies": [
+    "@quireui/foundation",
+    "@quireui/utils"
+  ],
+  "files": [
+    {
+      "path": "registry/ui/radio-group.tsx",
+      "content": "\"use client\";\n\nimport { Radio as BaseRadio } from \"@base-ui/react/radio\";\nimport { RadioGroup as BaseRadioGroup } from \"@base-ui/react/radio-group\";\nimport { type ComponentProps, type ReactNode, useId } from \"react\";\nimport { cn } from \"@/registry/lib/cn\";\n\n/** Holds the options; arrow keys move the choice between them, Tab leaves the group. */\nexport function RadioGroup({ className, ...props }: ComponentProps<typeof BaseRadioGroup>) {\n  return <BaseRadioGroup data-slot=\"radio-group\" className={cn(\"flex flex-col gap-2.5\", className)} {...props} />;\n}\n\nexport function Radio({ className, ...props }: ComponentProps<typeof BaseRadio.Root>) {\n  return (\n    <BaseRadio.Root\n      data-slot=\"radio\"\n      className={cn(\n        // Same size as Checkbox: half a control's height, so it follows density.\n        \"motion-control focus-ring grid size-[calc(var(--qui-control-h)/2)] shrink-0 cursor-default place-items-center rounded-full border border-border-strong bg-surface\",\n        \"hover:border-fg-subtle data-[checked]:border-primary data-[checked]:bg-primary\",\n        \"data-[invalid]:border-danger data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50\",\n        className,\n      )}\n      {...props}\n    >\n      <BaseRadio.Indicator className=\"motion-pop size-[40%] rounded-full bg-primary-fg\" />\n    </BaseRadio.Root>\n  );\n}\n\n/** A radio with its label and an optional description; the whole row selects it. */\nexport function RadioLabel({\n  className,\n  children,\n  description,\n  ...props\n}: ComponentProps<typeof Radio> & {\n  /** A second line in a quieter colour, e.g. what choosing it means. */\n  description?: ReactNode;\n}) {\n  const descriptionId = useId();\n  return (\n    <label\n      data-slot=\"radio-label\"\n      className={cn(\n        \"flex cursor-default items-start gap-2 text-(length:--qui-text) text-fg has-[[data-disabled]]:cursor-not-allowed has-[[data-disabled]]:opacity-50\",\n        className,\n      )}\n    >\n      {/* Centred on the first line of text at every density. */}\n      <span className=\"flex h-[1.5em] shrink-0 items-center\">\n        <Radio aria-describedby={description ? descriptionId : undefined} {...props} />\n      </span>\n      <span className=\"flex flex-col leading-[1.5]\">\n        <span>{children}</span>\n        {description && (\n          <span id={descriptionId} className=\"text-xs text-fg-muted\">\n            {description}\n          </span>\n        )}\n      </span>\n    </label>\n  );\n}\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}
