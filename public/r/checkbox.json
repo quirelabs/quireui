@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "checkbox",
+  "title": "Checkbox",
+  "description": "A checkbox that sizes with density, with a label row as its hit area and a select-all parent.",
+  "dependencies": [
+    "@base-ui/react",
+    "@phosphor-icons/react"
+  ],
+  "registryDependencies": [
+    "@quireui/foundation",
+    "@quireui/utils"
+  ],
+  "files": [
+    {
+      "path": "registry/ui/checkbox.tsx",
+      "content": "\"use client\";\n\nimport { Checkbox as BaseCheckbox } from \"@base-ui/react/checkbox\";\nimport { CheckboxGroup as BaseCheckboxGroup } from \"@base-ui/react/checkbox-group\";\nimport { CheckIcon, MinusIcon } from \"@phosphor-icons/react/ssr\";\nimport { type ComponentProps, type ReactNode, useId } from \"react\";\nimport { cn } from \"@/registry/lib/cn\";\n\nexport function Checkbox({ className, ...props }: ComponentProps<typeof BaseCheckbox.Root>) {\n  return (\n    <BaseCheckbox.Root\n      data-slot=\"checkbox\"\n      className={cn(\n        // Half a control's height: 14, 16 or 20px with density, larger on touch.\n        \"motion-control focus-ring grid size-[calc(var(--qui-control-h)/2)] shrink-0 cursor-default place-items-center rounded-[4px] border border-border-strong bg-surface text-primary-fg\",\n        \"hover:border-fg-subtle data-[checked]:border-primary data-[checked]:bg-primary data-[indeterminate]:border-primary data-[indeterminate]:bg-primary\",\n        \"data-[invalid]:border-danger data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50\",\n        className,\n      )}\n      {...props}\n    >\n      <BaseCheckbox.Indicator\n        className=\"motion-pop flex data-[unchecked]:hidden [&_svg]:size-[calc(var(--qui-control-h)/2-0.25rem)]\"\n        render={(indicatorProps, state) => (\n          <span {...indicatorProps}>{state.indeterminate ? <MinusIcon weight=\"bold\" /> : <CheckIcon weight=\"bold\" />}</span>\n        )}\n      />\n    </BaseCheckbox.Root>\n  );\n}\n\n/**\n * A checkbox with its label and an optional description. The whole row is the hit area, so\n * the small box is never the only thing to aim for.\n */\nexport function CheckboxLabel({\n  className,\n  children,\n  description,\n  ...props\n}: ComponentProps<typeof Checkbox> & {\n  /** A second line in a quieter colour, e.g. what the option means. */\n  description?: ReactNode;\n}) {\n  const descriptionId = useId();\n  return (\n    <label\n      data-slot=\"checkbox-label\"\n      className={cn(\n        \"flex cursor-default items-start gap-2 text-(length:--qui-text) text-fg has-[[data-disabled]]:cursor-not-allowed has-[[data-disabled]]:opacity-50\",\n        className,\n      )}\n    >\n      {/* Nudged down so the box centres on the first line of text at every density. */}\n      <span className=\"flex h-[1.5em] shrink-0 items-center\">\n        <Checkbox aria-describedby={description ? descriptionId : undefined} {...props} />\n      </span>\n      <span className=\"flex flex-col leading-[1.5]\">\n        <span>{children}</span>\n        {description && (\n          <span id={descriptionId} className=\"text-xs text-fg-muted\">\n            {description}\n          </span>\n        )}\n      </span>\n    </label>\n  );\n}\n\n/** Holds a list of checkboxes and their combined value; a `parent` checkbox selects them all. */\nexport function CheckboxGroup({ className, ...props }: ComponentProps<typeof BaseCheckboxGroup>) {\n  return <BaseCheckboxGroup data-slot=\"checkbox-group\" className={cn(\"flex flex-col gap-2.5\", className)} {...props} />;\n}\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}
