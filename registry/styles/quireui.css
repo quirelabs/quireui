@@ -396,6 +396,30 @@
   }
 }
 
+/*
+ * Toasts: transform and height carry the slide in, the deck and the fan-out on hover; height
+ * may animate because toasts are absolutely positioned. While a toast is being swiped it
+ * follows the finger with no transition. Reduced motion keeps only the fade; the stack still
+ * lays out the same, it just does not move between states.
+ */
+@utility motion-toast {
+  transition-property: opacity, transform, height;
+  transition-duration: var(--qui-duration-slow);
+  transition-timing-function: var(--qui-ease-out);
+  &[data-ending-style] {
+    transition-duration: var(--qui-duration-exit);
+  }
+  &[data-swiping] {
+    transition-property: opacity;
+  }
+  :root[data-motion="reduced"] & {
+    transition-property: opacity;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    transition-property: opacity;
+  }
+}
+
 /* Shared focus ring, keyboard focus only. */
 @utility focus-ring {
   outline: 2px solid transparent;

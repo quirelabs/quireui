@@ -475,6 +475,27 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "toast",
+      "type": "registry:ui",
+      "title": "Toast",
+      "description": "Quiet confirmations that stack into a deck, fan out on hover and swipe away.",
+      "dependencies": [
+        "@base-ui/react",
+        "@phosphor-icons/react"
+      ],
+      "registryDependencies": [
+        "@quireui/foundation",
+        "@quireui/utils",
+        "@quireui/button"
+      ],
+      "files": [
+        {
+          "path": "registry/ui/toast.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }
