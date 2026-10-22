@@ -25,6 +25,12 @@
   --qui-neutral-950: oklch(14.5% 0.007 85);
   --qui-red-500: oklch(58% 0.19 30);
   --qui-red-400: oklch(66% 0.17 30);
+  --qui-green-500: oklch(56% 0.12 155);
+  --qui-green-400: oklch(72% 0.13 155);
+  --qui-amber-500: oklch(64% 0.13 70);
+  --qui-amber-400: oklch(78% 0.13 75);
+  --qui-blue-500: oklch(56% 0.14 255);
+  --qui-blue-400: oklch(72% 0.11 255);
 }
 
 /* Semantic tokens. Components only ever use these. */
@@ -44,6 +50,10 @@
   --qui-primary-fg: var(--qui-neutral-25);
   --qui-danger: var(--qui-red-500);
   --qui-danger-fg: var(--qui-neutral-0);
+  /* Status hues for badges and icons. Used as a tint or a mark, never as a large fill. */
+  --qui-success: var(--qui-green-500);
+  --qui-warning: var(--qui-amber-500);
+  --qui-info: var(--qui-blue-500);
   --qui-ring: var(--qui-neutral-950);
   --qui-backdrop: oklch(14.5% 0 0 / 0.32);
   /* The only shadow in the system: floating layers need depth to separate from content. */
@@ -66,6 +76,9 @@
   --qui-primary-hover: var(--qui-neutral-200);
   --qui-primary-fg: var(--qui-neutral-950);
   --qui-danger: var(--qui-red-400);
+  --qui-success: var(--qui-green-400);
+  --qui-warning: var(--qui-amber-400);
+  --qui-info: var(--qui-blue-400);
   --qui-ring: var(--qui-neutral-50);
   --qui-backdrop: oklch(0% 0 0 / 0.6);
   --qui-shadow-float: 0 8px 24px -8px oklch(0% 0 0 / 0.6);
@@ -130,6 +143,9 @@
   --color-primary-fg: var(--qui-primary-fg);
   --color-danger: var(--qui-danger);
   --color-danger-fg: var(--qui-danger-fg);
+  --color-success: var(--qui-success);
+  --color-warning: var(--qui-warning);
+  --color-info: var(--qui-info);
   --color-ring: var(--qui-ring);
   --color-backdrop: var(--qui-backdrop);
   --shadow-float: var(--qui-shadow-float);
@@ -426,17 +442,27 @@
       scale: 0.5;
     }
   }
+  /* The bar eases between updates, so progress reported in bursts still moves smoothly. */
+  & [data-toast-progress] {
+    transition: transform var(--qui-duration-slow) var(--qui-ease-out);
+  }
   :root[data-input="keyboard"] & [data-toast-icon] {
     transition-duration: 0ms;
   }
   :root[data-motion="reduced"] & {
     transition-property: opacity;
+    & [data-toast-progress] {
+      transition: none;
+    }
     & [data-toast-icon] {
       transition-property: opacity;
     }
   }
   @media (prefers-reduced-motion: reduce) {
     transition-property: opacity;
+    & [data-toast-progress] {
+      transition: none;
+    }
     & [data-toast-icon] {
       transition-property: opacity;
     }

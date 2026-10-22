@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "badge",
+  "title": "Badge",
+  "description": "Soft status labels that tint from one hue, so a column of them stays calm.",
+  "dependencies": [],
+  "registryDependencies": [
+    "@quireui/foundation",
+    "@quireui/utils"
+  ],
+  "files": [
+    {
+      "path": "registry/ui/badge.tsx",
+      "content": "import type { ComponentProps } from \"react\";\nimport { cn } from \"@/registry/lib/cn\";\n\n// Each tone is one hue. Badges tint from it at low strength, so a column of them stays calm.\nconst tones = {\n  neutral: \"[--tone:var(--qui-fg-subtle)]\",\n  success: \"[--tone:var(--qui-success)]\",\n  warning: \"[--tone:var(--qui-warning)]\",\n  danger: \"[--tone:var(--qui-danger)]\",\n  info: \"[--tone:var(--qui-info)]\",\n} as const;\n\nconst variants = {\n  soft: \"border-[color-mix(in_oklch,var(--tone)_24%,transparent)] bg-[color-mix(in_oklch,var(--tone)_11%,var(--qui-surface))] text-[color-mix(in_oklch,var(--tone)_78%,var(--qui-fg))]\",\n  // The tone shows only in the dot or icon: for dense tables, where a column of tints gets loud.\n  outline: \"border-border text-fg-muted\",\n} as const;\n\n// Sized from the text token, so badges follow density without becoming control-sized.\nconst sizes = {\n  sm: \"h-[calc(var(--qui-text)+0.25rem)] gap-1 px-1.5 text-[calc(var(--qui-text)-0.1875rem)] has-[>svg:first-child]:pl-1 has-[>[data-badge-dot]]:pl-1.5 [&_svg]:size-3\",\n  md: \"h-[calc(var(--qui-text)+0.5rem)] gap-1.5 px-2 text-[calc(var(--qui-text)-0.125rem)] has-[>svg:first-child]:pl-1.5 has-[>[data-badge-dot]]:pl-2 [&_svg]:size-3.5\",\n} as const;\n\nexport type BadgeProps = ComponentProps<\"span\"> & {\n  /** The status it shows. Defaults to neutral. */\n  tone?: keyof typeof tones;\n  /** `soft` tints the whole badge; `outline` keeps it quiet and colours only the dot or icon. Defaults to soft. */\n  variant?: keyof typeof variants;\n  size?: keyof typeof sizes;\n  /** A small dot in the tone's colour before the label. */\n  dot?: boolean;\n};\n\nexport function Badge({ tone = \"neutral\", variant = \"soft\", size = \"md\", dot = false, className, children, ...props }: BadgeProps) {\n  return (\n    <span\n      data-slot=\"badge\"\n      className={cn(\n        \"nums inline-flex shrink-0 items-center rounded-[calc(var(--radius-control)-0.125rem)] border leading-none font-medium whitespace-nowrap [&_svg]:shrink-0 [&_svg]:text-(--tone)\",\n        tones[tone],\n        variants[variant],\n        sizes[size],\n        className,\n      )}\n      {...props}\n    >\n      {dot && <span data-badge-dot aria-hidden className=\"size-1.5 shrink-0 rounded-full bg-(--tone)\" />}\n      {children}\n    </span>\n  );\n}\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}
