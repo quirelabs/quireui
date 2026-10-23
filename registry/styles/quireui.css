@@ -59,6 +59,8 @@
   /* The only shadow in the system: floating layers need depth to separate from content. */
   --qui-shadow-float: 0 8px 24px -10px oklch(14.5% 0.007 85 / 0.18),
     0 2px 6px -2px oklch(14.5% 0.007 85 / 0.06);
+  /* The start colour of scroll edges, the fade under a sticky part while content is beneath it. */
+  --qui-edge: oklch(14.5% 0.007 85 / 0.04);
 }
 
 .dark {
@@ -82,6 +84,7 @@
   --qui-ring: var(--qui-neutral-50);
   --qui-backdrop: oklch(0% 0 0 / 0.6);
   --qui-shadow-float: 0 8px 24px -8px oklch(0% 0 0 / 0.6);
+  --qui-edge: oklch(0% 0 0 / 0.28);
   color-scheme: dark;
 }
 
@@ -475,6 +478,55 @@
   outline-offset: 2px;
   &:focus-visible {
     outline-color: var(--qui-ring);
+  }
+}
+
+/*
+ * Scroll edges: a soft shadow on a sticky part that shows only while content is under it, driven
+ * by the scroll position itself (no JS, no listeners). Put one on a pseudo-element of the sticky
+ * part. Browsers without scroll timelines show no shadow, which is the quiet default anyway.
+ */
+@keyframes qui-edge-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes qui-edge-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+/* Under a sticky top: appears over the first 1rem of scrolling down. */
+@utility scroll-edge-top {
+  opacity: 0;
+  @supports (animation-timeline: scroll()) {
+    animation: qui-edge-in linear both;
+    animation-timeline: scroll(nearest block);
+    animation-range: 0 1rem;
+  }
+}
+/* Above a sticky bottom: shows while there is more below, fades over the last 1rem. */
+@utility scroll-edge-bottom {
+  opacity: 0;
+  @supports (animation-timeline: scroll()) {
+    animation: qui-edge-out linear both;
+    animation-timeline: scroll(nearest block);
+    animation-range: calc(100% - 1rem) 100%;
+  }
+}
+/* Beside a sticky start column: appears once scrolled sideways. */
+@utility scroll-edge-start {
+  opacity: 0;
+  @supports (animation-timeline: scroll()) {
+    animation: qui-edge-in linear both;
+    animation-timeline: scroll(nearest inline);
+    animation-range: 0 1rem;
   }
 }
 
