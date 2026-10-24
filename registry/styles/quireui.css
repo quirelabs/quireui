@@ -284,7 +284,7 @@
 
 /* Hover and press feedback. Paint-only properties so it can never shift layout. */
 @utility motion-control {
-  transition-property: color, background-color, border-color, box-shadow, scale;
+  transition-property: color, background-color, border-color, box-shadow, scale, translate;
   transition-duration: var(--qui-duration-fast);
   transition-timing-function: var(--qui-ease-out);
 }
