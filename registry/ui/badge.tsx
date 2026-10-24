@@ -11,7 +11,7 @@ const tones = {
 } as const;
 
 const variants = {
-  soft: "border-[color-mix(in_oklch,var(--tone)_24%,transparent)] bg-[color-mix(in_oklch,var(--tone)_11%,var(--qui-surface))] text-[color-mix(in_oklch,var(--tone)_78%,var(--qui-fg))]",
+  soft: "border-[color-mix(in_oklab,var(--tone)_24%,transparent)] bg-[color-mix(in_oklab,var(--tone)_11%,var(--qui-surface))] text-[color-mix(in_oklab,var(--tone)_78%,var(--qui-fg))]",
   // The tone shows only in the dot or icon: for dense tables, where a column of tints gets loud.
   outline: "border-border text-fg-muted",
 } as const;

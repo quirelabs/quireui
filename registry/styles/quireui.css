@@ -62,7 +62,7 @@
   /* The start colour of scroll edges, the fade under a sticky part while content is beneath it. */
   --qui-edge: oklch(14.5% 0.007 85 / 0.04);
   /* Loading placeholders, and the faint light that sweeps across them. */
-  --qui-skeleton: color-mix(in oklch, var(--qui-fg) 6%, var(--qui-surface));
+  --qui-skeleton: color-mix(in oklab, var(--qui-fg) 6%, var(--qui-surface));
   --qui-skeleton-sweep: oklch(100% 0 0 / 0.55);
 }
 
@@ -88,7 +88,7 @@
   --qui-backdrop: oklch(0% 0 0 / 0.6);
   --qui-shadow-float: 0 8px 24px -8px oklch(0% 0 0 / 0.6);
   --qui-edge: oklch(0% 0 0 / 0.28);
-  --qui-skeleton: color-mix(in oklch, var(--qui-fg) 7%, var(--qui-surface));
+  --qui-skeleton: color-mix(in oklab, var(--qui-fg) 7%, var(--qui-surface));
   --qui-skeleton-sweep: oklch(100% 0 0 / 0.04);
   color-scheme: dark;
 }

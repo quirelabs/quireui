@@ -18,12 +18,13 @@ const inset = cn(
 );
 
 // Cells that sit on top of others (the header, the footer, a sticky column) are solid, square boxes
-// in the table's colour that draw their rounded band or highlight inside, on ::before. A rounded
+// in the table's colour that draw their band, hairline or highlight inside, on ::before. A rounded
 // cell would let the rows scrolling beneath it show through its corners.
 const solid = cn(
   "border-(--table-bg) bg-(--table-bg) first:border-l-[0.375rem] last:border-r-[0.375rem]",
-  "before:absolute before:inset-0 before:-z-10 first:before:rounded-l-control last:before:rounded-r-control",
+  "before:absolute before:inset-0 before:-z-10",
 );
+const roundEnds = "first:before:rounded-l-control last:before:rounded-r-control";
 
 const SectionContext = createContext<"body" | "footer">("body");
 
@@ -42,8 +43,10 @@ export function Table({ variant = "card", className, containerClassName, ...prop
       // The table draws its own edges: shadows under the sticky header, footer and column.
       fade={false}
       className={cn(
+        // Tints come from the surface scale, not from the text colour, so they keep the surface's
+        // warmth in dark mode instead of turning a flat grey.
         "w-full bg-(--table-bg) [--table-bg:var(--qui-surface)]",
-        "[--table-band:color-mix(in_oklch,var(--qui-fg)_4%,var(--table-bg))] [--table-hover:color-mix(in_oklch,var(--qui-fg)_3%,var(--table-bg))] [--table-selected:color-mix(in_oklch,var(--qui-fg)_6.5%,var(--table-bg))]",
+        "[--table-band:color-mix(in_oklab,var(--qui-surface-hover)_55%,var(--table-bg))] [--table-hover:color-mix(in_oklab,var(--qui-surface-hover)_65%,var(--table-bg))] [--table-selected:color-mix(in_oklab,var(--qui-surface-active)_55%,var(--table-bg))]",
         variant === "card" && "rounded-float border border-border",
         containerClassName,
       )}
@@ -123,7 +126,8 @@ export function TableHead({ align = "start", onSort, sort = false, sticky, class
       className={cn(
         "sticky top-0 z-[2] h-[calc(var(--qui-item-h)+0.625rem)] px-3 text-left align-middle text-[calc(var(--qui-text)-0.125rem)] font-medium whitespace-nowrap text-fg-muted",
         solid,
-        "border-t-[0.375rem] before:bg-(--table-band)",
+        // No fill: a hairline under the labels keeps the header out of the way.
+        "border-t-[0.375rem] before:shadow-[inset_0_-1px_0_var(--qui-border)]",
         align === "end" && "text-right",
         sticky && "left-0 z-[3]",
         // A shadow below the band once rows scroll under it.
@@ -170,7 +174,7 @@ export function TableCell({ align = "start", sticky, className, ...props }: Tabl
       className={cn(
         // Data reads best on one line; pass whitespace-normal for a column of prose.
         "h-[calc(var(--qui-item-h)+0.75rem)] px-3 align-middle whitespace-nowrap",
-        sticky || !body ? solid : inset,
+        sticky || !body ? [solid, roundEnds] : inset,
         align === "end" && "nums text-right",
         body && [
           // Hairline dividers drawn as a background, so they can start where the text starts.
