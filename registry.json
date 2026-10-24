@@ -534,6 +534,23 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "skeleton",
+      "type": "registry:ui",
+      "title": "Skeleton",
+      "description": "Placeholders measured in lines, not pixels, so loaded text replaces them without moving anything.",
+      "dependencies": [],
+      "registryDependencies": [
+        "@quireui/foundation",
+        "@quireui/utils"
+      ],
+      "files": [
+        {
+          "path": "registry/ui/skeleton.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }

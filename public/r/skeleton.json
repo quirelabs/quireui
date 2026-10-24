@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "skeleton",
+  "title": "Skeleton",
+  "description": "Placeholders measured in lines, not pixels, so loaded text replaces them without moving anything.",
+  "dependencies": [],
+  "registryDependencies": [
+    "@quireui/foundation",
+    "@quireui/utils"
+  ],
+  "files": [
+    {
+      "path": "registry/ui/skeleton.tsx",
+      "content": "import type { ComponentProps } from \"react\";\nimport { cn } from \"@/registry/lib/cn\";\n\n/**\n * A loading placeholder for anything that is not text: an avatar, a badge, a chart. Size it with\n * the same classes as the real thing, e.g. `size-8 rounded-full`, so nothing moves when it loads.\n */\nexport function Skeleton({ className, ...props }: ComponentProps<\"div\">) {\n  return <div data-slot=\"skeleton\" aria-hidden className={cn(\"skeleton rounded-control\", className)} {...props} />;\n}\n\n// Varied, repeatable widths, so a block of lines reads like text rather than a barcode.\nconst widths = [\"100%\", \"94%\", \"97%\", \"88%\"];\n\nexport type SkeletonTextProps = Omit<ComponentProps<\"div\">, \"children\"> & {\n  /** How many lines. The last of several is shorter, like the end of a paragraph. Defaults to 1. */\n  lines?: number;\n};\n\n/**\n * Placeholder lines measured in lines, not pixels: each is exactly one line-height of the text\n * around it, with the bar centred where the letters sit. Put it where the text will go, in the\n * same font size, and the text replaces it without moving anything.\n */\nexport function SkeletonText({ lines = 1, className, ...props }: SkeletonTextProps) {\n  return (\n    <div data-slot=\"skeleton-text\" aria-hidden className={className} {...props}>\n      {Array.from({ length: lines }, (_, i) => (\n        <div\n          // Lines never reorder, so the index is a stable key.\n          // biome-ignore lint/suspicious/noArrayIndexKey: static placeholder lines\n          key={i}\n          className=\"flex h-lh items-center\"\n          style={{ width: lines > 1 && i === lines - 1 ? \"62%\" : lines > 1 ? widths[i % widths.length] : undefined }}\n        >\n          <div className=\"skeleton h-[0.7em] w-full rounded-[0.25em]\" />\n        </div>\n      ))}\n    </div>\n  );\n}\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

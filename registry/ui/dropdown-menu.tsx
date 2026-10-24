@@ -2,12 +2,22 @@
 
 import { Menu } from "@base-ui/react/menu";
 import { CheckIcon } from "@phosphor-icons/react/ssr";
-import type { ComponentProps } from "react";
+import { type ComponentProps, createContext, use } from "react";
 import { cn } from "@/registry/lib/cn";
 
 export const DropdownMenu = Menu.Root;
 export const DropdownMenuTrigger = Menu.Trigger;
-export const DropdownMenuGroup = Menu.Group;
+
+// Lets a label know whether it names a group or stands alone, e.g. "Signed in as".
+const InGroupContext = createContext(false);
+
+export function DropdownMenuGroup(props: ComponentProps<typeof Menu.Group>) {
+  return (
+    <InGroupContext value={true}>
+      <Menu.Group {...props} />
+    </InGroupContext>
+  );
+}
 
 type PositionerProps = Pick<
   ComponentProps<typeof Menu.Positioner>,
@@ -84,12 +94,11 @@ export function DropdownMenuLabel({
   className,
   ...props
 }: ComponentProps<typeof Menu.GroupLabel>) {
-  return (
-    <Menu.GroupLabel
-      className={cn("px-2 pt-1.5 pb-1 text-xs font-medium text-fg-subtle", className)}
-      {...props}
-    />
-  );
+  const classes = cn("px-2 pt-1.5 pb-1 text-xs font-medium text-fg-subtle", className);
+  // Inside a group it labels the group for screen readers; outside one it is a plain caption.
+  if (use(InGroupContext)) return <Menu.GroupLabel className={classes} {...props} />;
+  const { render: _render, ...rest } = props;
+  return <div className={classes} {...(rest as ComponentProps<"div">)} />;
 }
 
 export function DropdownMenuSeparator({
