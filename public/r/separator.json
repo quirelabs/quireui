@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "separator",
+  "title": "Separator",
+  "description": "Hairlines between groups, vertical or with a label like \"or\".",
+  "dependencies": [
+    "@base-ui/react"
+  ],
+  "registryDependencies": [
+    "@quireui/foundation",
+    "@quireui/utils"
+  ],
+  "files": [
+    {
+      "path": "registry/ui/separator.tsx",
+      "content": "import { Separator as BaseSeparator } from \"@base-ui/react/separator\";\nimport type { ComponentProps, ReactNode } from \"react\";\nimport { cn } from \"@/registry/lib/cn\";\n\nexport type SeparatorProps = ComponentProps<typeof BaseSeparator> & {\n  /**\n   * Text on the line: centred for a choice like \"or\", at the start for a small section title.\n   * A labelled separator is always horizontal.\n   */\n  label?: ReactNode;\n  /** Where the label sits. Defaults to center. */\n  align?: \"center\" | \"start\";\n};\n\n/** A hairline between groups. Screen readers know it as a separator, not decoration. */\nexport function Separator({ orientation = \"horizontal\", label, align = \"center\", className, ...props }: SeparatorProps) {\n  if (label) {\n    return (\n      <div\n        data-slot=\"separator\"\n        className={cn(\n          \"flex items-center gap-3 text-xs text-fg-subtle\",\n          align === \"start\" && \"font-medium tracking-wide\",\n          className,\n        )}\n      >\n        {align === \"center\" && <BaseSeparator className=\"h-px flex-1 bg-border\" {...props} />}\n        <span className=\"shrink-0\">{label}</span>\n        <BaseSeparator className=\"h-px flex-1 bg-border\" {...props} />\n      </div>\n    );\n  }\n  return (\n    <BaseSeparator\n      data-slot=\"separator\"\n      orientation={orientation}\n      className={cn(\n        \"shrink-0 bg-border\",\n        orientation === \"horizontal\" ? \"h-px w-full\" : \"w-px self-stretch\",\n        className,\n      )}\n      {...props}\n    />\n  );\n}\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}
