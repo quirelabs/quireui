@@ -66,7 +66,7 @@ const indicators: Record<Variant, string> = {
     "data-[orientation=vertical]:top-0 data-[orientation=vertical]:right-0 data-[orientation=vertical]:bottom-auto data-[orientation=vertical]:left-auto data-[orientation=vertical]:h-[calc(var(--active-tab-height)-0.75rem)] data-[orientation=vertical]:w-0.5 data-[orientation=vertical]:translate-x-0 data-[orientation=vertical]:translate-y-[calc(var(--active-tab-top)+0.375rem)]",
   ),
   contained: cn(
-    "motion-indicator pointer-events-none absolute top-0 left-0 rounded-[calc(var(--radius-control)-0.125rem)] bg-surface shadow-[0_0_0_1px_var(--qui-border)]",
+    "motion-indicator pointer-events-none absolute top-0 left-0 rounded-[calc(var(--radius-control)-0.125rem)] bg-surface-raised shadow-[0_0_0_1px_var(--qui-border)]",
     "h-(--active-tab-height) w-(--active-tab-width) translate-x-(--active-tab-left) translate-y-(--active-tab-top)",
   ),
 };

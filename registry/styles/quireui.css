@@ -40,6 +40,8 @@
   --qui-surface-muted: var(--qui-neutral-50);
   --qui-surface-hover: var(--qui-neutral-100);
   --qui-surface-active: var(--qui-neutral-200);
+  /* Something raised out of a muted track, like the chosen segment. Lighter than the track in both themes. */
+  --qui-surface-raised: var(--qui-neutral-0);
   --qui-fg: var(--qui-neutral-950);
   --qui-fg-muted: var(--qui-neutral-600);
   --qui-fg-subtle: var(--qui-neutral-500);
@@ -72,6 +74,7 @@
   --qui-surface-muted: var(--qui-neutral-900);
   --qui-surface-hover: var(--qui-neutral-850);
   --qui-surface-active: var(--qui-neutral-800);
+  --qui-surface-raised: var(--qui-neutral-850);
   --qui-fg: var(--qui-neutral-50);
   --qui-fg-muted: var(--qui-neutral-400);
   --qui-fg-subtle: var(--qui-neutral-500);
@@ -141,6 +144,7 @@
   --color-surface-muted: var(--qui-surface-muted);
   --color-surface-hover: var(--qui-surface-hover);
   --color-surface-active: var(--qui-surface-active);
+  --color-surface-raised: var(--qui-surface-raised);
   --color-fg: var(--qui-fg);
   --color-fg-muted: var(--qui-fg-muted);
   --color-fg-subtle: var(--qui-fg-subtle);

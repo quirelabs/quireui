@@ -611,6 +611,26 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "toggle-group",
+      "type": "registry:ui",
+      "title": "Toggle group",
+      "description": "A segmented control with a marker that slides to the choice, or a row of independent toggles.",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "@quireui/foundation",
+        "@quireui/utils",
+        "@quireui/tooltip"
+      ],
+      "files": [
+        {
+          "path": "registry/ui/toggle-group.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }
