@@ -59,6 +59,7 @@ export type AvatarProps = Omit<ComponentProps<typeof BaseAvatar.Root>, "children
   name?: string;
   /** A photo or logo. Until it loads (or if it fails) the initials show instead. */
   src?: string;
+  /** From xs (20px) to xl (56px). Inside an AvatarGroup it follows the group. Defaults to md. */
   size?: Size;
   /** `circle` for people, `square` for companies and teams. Defaults to circle. */
   shape?: "circle" | "square";
@@ -285,10 +286,14 @@ const splash = [
 export type AvatarGroupProps = ComponentProps<"div"> & {
   /** How many to show before the rest fold into a "+N". Shows all by default. */
   max?: number;
+  /** The size of every avatar in the group. Defaults to md. */
   size?: Size;
 };
 
-/** A stack of overlapping avatars. Each shows its name on hover; "+N" lists the rest. */
+/**
+ * A stack of overlapping avatars. Each shows its name on hover; "+N" lists the rest.
+ * @cssvar --avatar-ring The ring between avatars; set it to the colour the stack sits on. Defaults to the surface.
+ */
 export function AvatarGroup({ max, size = "md", className, children, ...props }: AvatarGroupProps) {
   const items = Children.toArray(children).filter(isValidElement) as ReactElement<AvatarProps>[];
   const shown = max !== undefined && items.length > max ? items.slice(0, max - 1) : items;

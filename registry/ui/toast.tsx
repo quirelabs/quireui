@@ -134,7 +134,14 @@ const positions: Record<Position, string> = {
 };
 
 /** Where toasts appear. Place it once, inside ToastProvider. */
-export function Toaster({ position = "bottom-right", className }: { position?: Position; className?: string }) {
+export function Toaster({
+  position = "bottom-right",
+  className,
+}: {
+  /** The corner or edge toasts stack from. Top positions stack downward. Defaults to bottom-right. */
+  position?: Position;
+  className?: string;
+}) {
   const top = position.startsWith("top");
   return (
     <BaseToast.Portal>

@@ -26,6 +26,7 @@ export function PopoverContent({
   ...props
 }: ComponentProps<typeof BasePopover.Popup> &
   PositionerProps & {
+    /** The popover's width. Defaults to md. */
     size?: keyof typeof sizes;
     /** Point at the trigger. Useful when several triggers sit close together. */
     arrow?: boolean;

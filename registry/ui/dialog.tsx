@@ -24,8 +24,11 @@ export function useCloseGuard<D extends GuardDetails>({
   message,
   onOpenChange,
 }: {
+  /** Unsaved changes: closing asks first. */
   dirty: boolean;
+  /** The question asked before closing, e.g. "Discard unsaved changes?". */
   message: ReactNode;
+  /** The surrounding component's handler, called once closing is allowed. */
   onOpenChange?: (open: boolean, details: D) => void;
 }) {
   const actionsRef = useRef<{ close: () => void; unmount: () => void } | null>(null);
@@ -80,6 +83,7 @@ export function CloseGuardBar() {
 export type DialogProps = ComponentProps<typeof BaseDialog.Root> & {
   /** Unsaved changes: closing asks first. Set it back to false after saving. */
   dirty?: boolean;
+  /** The question asked before closing with unsaved changes. Defaults to "Discard unsaved changes?". */
   dirtyMessage?: ReactNode;
 };
 
@@ -113,7 +117,12 @@ export function DialogContent({
   showClose = true,
   onKeyDown,
   ...props
-}: ComponentProps<typeof BaseDialog.Popup> & { size?: keyof typeof sizes; showClose?: boolean }) {
+}: ComponentProps<typeof BaseDialog.Popup> & {
+  /** The dialog's width; `full` fills the screen on small ones. Defaults to md. */
+  size?: keyof typeof sizes;
+  /** Shows the close button in the corner. Defaults to true. */
+  showClose?: boolean;
+}) {
   return (
     <BaseDialog.Portal>
       <BaseDialog.Backdrop className="motion-fade fixed inset-0 bg-backdrop" />

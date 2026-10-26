@@ -62,7 +62,10 @@ export function DropdownMenuItem({
   className,
   variant = "default",
   ...props
-}: ComponentProps<typeof Menu.Item> & { variant?: "default" | "danger" }) {
+}: ComponentProps<typeof Menu.Item> & {
+  /** `danger` colours the item red, for destructive actions like Delete. Defaults to default. */
+  variant?: "default" | "danger";
+}) {
   return (
     <Menu.Item
       className={cn(

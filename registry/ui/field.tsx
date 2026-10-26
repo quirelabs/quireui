@@ -70,6 +70,7 @@ export function FieldError({
   className?: string;
   /** Keep the line's space when there is no error. Turn off for single fields like search. */
   reserve?: boolean;
+  /** Your own wording per browser validity error, e.g. `{ valueMissing: "Enter an email" }`. */
   messages?: Partial<Record<ValidityKey, ReactNode>>;
   children?: ReactNode;
 }) {

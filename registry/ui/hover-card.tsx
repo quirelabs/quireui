@@ -29,7 +29,11 @@ export function HoverCardContent({
   alignOffset,
   size = "md",
   ...props
-}: ComponentProps<typeof PreviewCard.Popup> & PositionerProps & { size?: keyof typeof sizes }) {
+}: ComponentProps<typeof PreviewCard.Popup> &
+  PositionerProps & {
+    /** The card's width. Defaults to md. */
+    size?: keyof typeof sizes;
+  }) {
   return (
     <PreviewCard.Portal>
       <PreviewCard.Positioner

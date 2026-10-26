@@ -35,6 +35,10 @@ export type TableProps = ComponentProps<"table"> & {
   containerClassName?: string;
 };
 
+/**
+ * Rows of data with a sticky header and footer, inset highlights and soft scroll edges.
+ * @cssvar --table-bg The table's background, which its sticky parts and insets are drawn in. Set it when the table sits on something other than the surface.
+ */
 export function Table({ variant = "card", className, containerClassName, ...props }: TableProps) {
   return (
     <ScrollArea

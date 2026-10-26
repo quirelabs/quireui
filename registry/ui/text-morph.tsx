@@ -20,6 +20,7 @@ export function TextMorph({
   className,
 }: {
   children: string;
+  /** The element it renders as. Defaults to span. */
   as?: ElementType;
   className?: string;
 }) {

@@ -21,7 +21,9 @@ function slotsFor(page: number, count: number): Slot[] {
 export type PaginationProps = Omit<ComponentProps<"nav">, "onChange"> & {
   /** The current page, from 1. */
   page: number;
+  /** How many pages there are. */
   pageCount: number;
+  /** Called with the page someone asked for, already kept within 1 and `pageCount`. */
   onPageChange?: (page: number) => void;
   /** Makes each page a real link, so pages can be opened in a new tab and crawled. */
   getHref?: (page: number) => string;
@@ -231,7 +233,16 @@ export function PaginationSummary({
   noun,
   className,
   ...props
-}: ComponentProps<"p"> & { page: number; pageSize: number; total: number; noun?: string }) {
+}: ComponentProps<"p"> & {
+  /** The current page, from 1. */
+  page: number;
+  /** Rows per page. */
+  pageSize: number;
+  /** Rows in the whole set. */
+  total: number;
+  /** What the rows are, e.g. "invoices". */
+  noun?: string;
+}) {
   const from = total === 0 ? 0 : (page - 1) * pageSize + 1;
   const to = Math.min(page * pageSize, total);
   return (
@@ -257,8 +268,11 @@ export function PaginationPageSize({
   options = [10, 25, 50, 100],
   className,
 }: {
+  /** Rows per page. */
   value: number;
+  /** Called with the new page size. */
   onValueChange: (value: number) => void;
+  /** The sizes to offer. */
   options?: number[];
   className?: string;
 }) {

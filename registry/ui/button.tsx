@@ -28,7 +28,9 @@ const sizes = {
 } as const;
 
 export type ButtonProps = ComponentProps<typeof BaseButton> & {
+  /** `primary` for the main action, `secondary` for the rest, `ghost` in toolbars, `danger` for destructive ones. Defaults to secondary. */
   variant?: keyof typeof variants;
+  /** Follows the density tokens; `icon` is square, for a lone icon. Defaults to md. */
   size?: keyof typeof sizes;
   /** Keeps the button's width while busy. The spinner only appears if it takes longer than 150ms. */
   loading?: boolean;

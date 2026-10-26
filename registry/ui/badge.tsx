@@ -27,6 +27,7 @@ export type BadgeProps = ComponentProps<"span"> & {
   tone?: keyof typeof tones;
   /** `soft` tints the whole badge; `outline` keeps it quiet and colours only the dot or icon. Defaults to soft. */
   variant?: keyof typeof variants;
+  /** `sm` next to headings and in menus, `md` in lists and tables. Defaults to md. */
   size?: keyof typeof sizes;
   /** A small dot in the tone's colour before the label. */
   dot?: boolean;

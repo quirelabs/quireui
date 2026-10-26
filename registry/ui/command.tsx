@@ -31,11 +31,15 @@ function matches(item: CommandItem, query: string) {
 }
 
 export type CommandProps = {
+  /** The commands, in titled groups. */
   groups: CommandGroup[];
   /** Runs after the item's own onSelect, e.g. to close a surrounding dialog. */
   onRun?: (item: CommandItem) => void;
+  /** Text in the empty search field. */
   placeholder?: string;
+  /** Shown when nothing matches the search. */
   emptyText?: ReactNode;
+  /** A ref to the search field, e.g. to focus it when a surrounding dialog opens. */
   inputRef?: Ref<HTMLInputElement>;
   className?: string;
 };
@@ -121,7 +125,9 @@ export function Command({
 }
 
 export type CommandPaletteProps = Omit<CommandProps, "onRun" | "inputRef"> & {
+  /** Whether the palette is open. */
   open: boolean;
+  /** Called when the palette opens or closes, by the hotkey, Esc or running a command. */
   onOpenChange: (open: boolean) => void;
   /** Mod+<hotkey> toggles the palette. Pass null to disable. */
   hotkey?: string | null;

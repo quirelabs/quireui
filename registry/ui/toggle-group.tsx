@@ -26,12 +26,16 @@ const SizeContext = createContext<Size>("md");
 const ModeContext = createContext({ multiple: false, joined: false });
 
 type Common = Omit<ComponentProps<typeof BaseToggleGroup>, "value" | "defaultValue" | "onValueChange" | "multiple"> & {
+  /** Follows the density tokens. Defaults to md. */
   size?: Size;
 };
 type Single = Common & {
   multiple?: false;
+  /** The chosen item, or the pressed items with `multiple`. */
   value?: string;
+  /** The value to start with when it is not controlled. */
   defaultValue?: string;
+  /** Called with the new value: the chosen item, or the pressed items with `multiple`. */
   onValueChange?: (value: string) => void;
 };
 type Multiple = Common & {
@@ -159,6 +163,7 @@ function useMarker(ref: RefObject<HTMLDivElement | null>, enabled: boolean) {
 }
 
 export type ToggleGroupItemProps = Omit<ComponentProps<typeof BaseToggle>, "value"> & {
+  /** The value this item stands for in the group. */
   value: string;
   /** For icon-only items: the tooltip and the accessible name. */
   label?: ReactNode;

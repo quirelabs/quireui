@@ -10,9 +10,11 @@ type Side = "right" | "left" | "bottom";
 const SideContext = createContext<Side>("right");
 
 export type SheetProps = ComponentProps<typeof Drawer.Root> & {
+  /** The edge it slides in from. Defaults to right. */
   side?: Side;
   /** Unsaved changes: closing asks first. Set it back to false after saving. */
   dirty?: boolean;
+  /** The question asked before closing with unsaved changes. Defaults to "Discard unsaved changes?". */
   dirtyMessage?: ReactNode;
 };
 
@@ -53,7 +55,10 @@ export function SheetContent({
   showClose = true,
   onKeyDown,
   ...props
-}: ComponentProps<typeof Drawer.Popup> & { showClose?: boolean }) {
+}: ComponentProps<typeof Drawer.Popup> & {
+  /** Shows the close button in the corner. Defaults to true. */
+  showClose?: boolean;
+}) {
   const side = use(SideContext);
   const l = layout[side];
   const popupRef = useRef<HTMLDivElement>(null);

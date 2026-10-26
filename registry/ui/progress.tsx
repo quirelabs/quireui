@@ -48,13 +48,17 @@ function Header({ label, value }: { label?: ReactNode; value?: ReactNode }) {
 export type ProgressProps = Omit<ComponentProps<typeof BaseProgress.Root>, "value" | "children"> & {
   /** How far along. `null` means the amount is unknown, and the bar sweeps instead. */
   value: number | null;
+  /** The value that means done. Defaults to 100. */
   max?: number;
+  /** What is in progress, shown above the bar on the left. */
   label?: ReactNode;
   /** The text on the right, e.g. "5 of 12". Defaults to the percentage. */
   valueLabel?: ReactNode;
   /** Splits the bar into this many segments, for steps like "2 of 4". */
   steps?: number;
+  /** The bar's thickness: 4, 6 or 8px. Defaults to md. */
   size?: Size;
+  /** The fill colour while in progress; it turns green when done. Defaults to neutral. */
   tone?: Tone;
 };
 
@@ -118,9 +122,11 @@ export function Progress({
 }
 
 export type MeterProps = Omit<ComponentProps<typeof BaseMeter.Root>, "children"> & {
+  /** What is measured, shown above the bar on the left. */
   label?: ReactNode;
   /** The text on the right, e.g. "7.2 GB of 10 GB". Defaults to the percentage. */
   valueLabel?: ReactNode;
+  /** The bar's thickness: 4, 6 or 8px. Defaults to md. */
   size?: Size;
   /** Fixed colour. Without it the colour follows the thresholds. */
   tone?: Tone;
@@ -186,10 +192,15 @@ export function MeterStack({
   size = "lg",
   className,
 }: {
+  /** The parts, in order, each with a label, a value and a tone. */
   parts: MeterStackPart[];
+  /** The whole range the parts add up within, e.g. 10 for 10 GB. */
   max: number;
+  /** What is measured, shown above the bar on the left. */
   label?: ReactNode;
+  /** The text on the right, e.g. "7.2 GB of 10 GB". Defaults to the percentage used. */
   valueLabel?: ReactNode;
+  /** The bar's thickness: 4, 6 or 8px. Defaults to lg. */
   size?: Size;
   className?: string;
 }) {

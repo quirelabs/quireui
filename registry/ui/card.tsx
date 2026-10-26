@@ -22,7 +22,15 @@ export function Card({ className, ...props }: ComponentProps<"section">) {
 }
 
 /** Title, description and an optional action on the right, like a button or a menu. */
-export function CardHeader({ className, children, action, ...props }: ComponentProps<"div"> & { action?: ReactNode }) {
+export function CardHeader({
+  className,
+  children,
+  action,
+  ...props
+}: ComponentProps<"div"> & {
+  /** A button or menu on the right, lined up with the title. */
+  action?: ReactNode;
+}) {
   return (
     <div data-slot="card-header" className={cn("flex items-start gap-3 px-5 pt-4 pb-2", className)} {...props}>
       <div className="flex min-w-0 flex-1 flex-col gap-0.5">{children}</div>

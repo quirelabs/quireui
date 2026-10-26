@@ -29,6 +29,7 @@ export function ScrollArea({
   viewportClassName?: string;
   /** Classes for the wrapper around children, e.g. padding or spacing. */
   contentClassName?: string;
+  /** Which ways it scrolls, and so which scroll bars it shows. Defaults to vertical. */
   orientation?: "vertical" | "horizontal" | "both";
   /** Fade edges that have more content. */
   fade?: boolean;
