@@ -481,6 +481,42 @@
   }
 }
 
+/*
+ * Progress and meter fills. They slide with translate (never width), easing between updates so
+ * progress reported in bursts still moves smoothly, and change colour when they finish or cross
+ * a threshold. An unknown amount sweeps instead. Reduced motion jumps straight to each value.
+ */
+@keyframes qui-progress-sweep {
+  from {
+    translate: -100% 0;
+  }
+  to {
+    translate: 250% 0;
+  }
+}
+@utility motion-fill {
+  transition-property: translate, background-color;
+  transition-duration: var(--qui-duration-slow);
+  transition-timing-function: var(--qui-ease-out);
+  &[data-sweep] {
+    animation: qui-progress-sweep 1.4s var(--qui-ease-in-out) infinite;
+  }
+  :root[data-motion="reduced"] & {
+    transition-duration: 0ms;
+    &[data-sweep] {
+      animation: none;
+      translate: 75% 0;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    transition-duration: 0ms;
+    &[data-sweep] {
+      animation: none;
+      translate: 75% 0;
+    }
+  }
+}
+
 /* A small mark that pops in when it appears or changes, like a count. Key it by its value. */
 @utility motion-stamp {
   transition-property: opacity, scale;
