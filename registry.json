@@ -1,7 +1,7 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry.json",
   "name": "quireui",
-  "homepage": "https://example.com",
+  "homepage": "https://quireui.dev",
   "items": [
     {
       "name": "foundation",
