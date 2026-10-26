@@ -6,6 +6,7 @@ import { MagnifyingGlassIcon } from "@phosphor-icons/react/ssr";
 import { type ReactNode, type Ref, useId } from "react";
 import { cn } from "@/registry/lib/cn";
 import { useShortcut } from "@/registry/lib/shortcut";
+import { Kbd } from "@/registry/ui/kbd";
 
 export type CommandItem = {
   value: string;
@@ -156,13 +157,5 @@ export function CommandPalette({
         </Dialog.Viewport>
       </Dialog.Portal>
     </Dialog.Root>
-  );
-}
-
-function Kbd({ children }: { children: ReactNode }) {
-  return (
-    <kbd className="inline-flex h-5 min-w-5 items-center justify-center rounded border border-border bg-surface-muted px-1 font-sans text-[0.6875rem] text-fg-muted">
-      {children}
-    </kbd>
   );
 }

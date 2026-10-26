@@ -331,7 +331,8 @@
         "@quireui/foundation",
         "@quireui/utils",
         "@quireui/input-modality",
-        "@quireui/shortcut"
+        "@quireui/shortcut",
+        "@quireui/kbd"
       ],
       "files": [
         {
@@ -558,7 +559,8 @@
       "title": "Avatar",
       "description": "Photos with initials that keep their colour per person, presence dots, and stacks that name everyone.",
       "dependencies": [
-        "@base-ui/react"
+        "@base-ui/react",
+        "@phosphor-icons/react"
       ],
       "registryDependencies": [
         "@quireui/foundation",
@@ -568,6 +570,24 @@
       "files": [
         {
           "path": "registry/ui/avatar.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "kbd",
+      "type": "registry:ui",
+      "title": "Kbd",
+      "description": "Keyboard keys drawn for the platform, with sequences and keys that light up as you press them.",
+      "dependencies": [],
+      "registryDependencies": [
+        "@quireui/foundation",
+        "@quireui/utils",
+        "@quireui/shortcut"
+      ],
+      "files": [
+        {
+          "path": "registry/ui/kbd.tsx",
           "type": "registry:ui"
         }
       ]

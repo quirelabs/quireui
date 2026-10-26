@@ -477,6 +477,256 @@
   }
 }
 
+/* A small mark that pops in when it appears or changes, like a count. Key it by its value. */
+@utility motion-stamp {
+  transition-property: opacity, scale;
+  transition-duration: var(--qui-duration-base);
+  transition-timing-function: var(--qui-ease-out);
+  @starting-style {
+    opacity: 0;
+    scale: 0.5;
+  }
+  :root[data-input="keyboard"] & {
+    transition-duration: 0ms;
+  }
+  :root[data-motion="reduced"] & {
+    transition-property: opacity;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    transition-property: opacity;
+  }
+}
+
+/*
+ * Notification badges. A real arrival is choreographed, all in scale, translate and opacity:
+ * the avatar dips as if something landed (motion-notify-host); the badge squeezes out of the
+ * avatar like a drop of liquid while two droplets fall back in behind it; it lands with a small
+ * splash and one ripple; then the number pops in and a sheen passes over. A count going up makes
+ * the badge gulp and the number roll. A notification is not an answer to input and is rare, so
+ * this is a deliberate expressive moment: the whole arrival takes about 650ms, past
+ * --qui-duration-slow. Reduced motion keeps only the fades. The badge's resting offset is
+ * --bx/--by, which the keyframes start from.
+ */
+@keyframes qui-notify-in {
+  0% {
+    opacity: 0;
+    scale: 0.25 0.25;
+    translate: calc(var(--bx) - 70%) calc(var(--by) + 70%);
+  }
+  35% {
+    opacity: 1;
+    scale: 1.15 0.88;
+    translate: calc(var(--bx) + 10%) calc(var(--by) - 10%);
+  }
+  65% {
+    scale: 0.9 1.1;
+    translate: var(--bx) var(--by);
+  }
+  82% {
+    scale: 1.04 0.97;
+  }
+  100% {
+    scale: 1 1;
+    translate: var(--bx) var(--by);
+  }
+}
+@keyframes qui-notify-out {
+  to {
+    opacity: 0;
+    scale: 0.3 0.3;
+    translate: calc(var(--bx) - 50%) calc(var(--by) + 50%);
+  }
+}
+@keyframes qui-notify-receive {
+  0% {
+    scale: 1;
+  }
+  22% {
+    scale: 0.955;
+  }
+  58% {
+    scale: 1.02;
+  }
+  100% {
+    scale: 1;
+  }
+}
+@keyframes qui-notify-trail {
+  from {
+    opacity: 1;
+    scale: 1;
+    translate: 0 0;
+  }
+  to {
+    opacity: 0;
+    scale: 0;
+    translate: -70% 70%;
+  }
+}
+@keyframes qui-notify-halo {
+  from {
+    opacity: 0.35;
+    scale: 1;
+  }
+  to {
+    opacity: 0;
+    scale: 2;
+  }
+}
+@keyframes qui-notify-splash {
+  0% {
+    opacity: 0;
+    scale: 1;
+    translate: 0 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    scale: 0.3;
+    translate: var(--sx) var(--sy);
+  }
+}
+@keyframes qui-notify-gulp {
+  0% {
+    scale: 1 1;
+  }
+  35% {
+    scale: 1.18 0.86;
+  }
+  65% {
+    scale: 0.94 1.06;
+  }
+  100% {
+    scale: 1 1;
+  }
+}
+@keyframes qui-notify-pop {
+  0% {
+    opacity: 0;
+    scale: 0.4;
+  }
+  70% {
+    opacity: 1;
+    scale: 1.12;
+  }
+  100% {
+    scale: 1;
+  }
+}
+@keyframes qui-notify-sheen {
+  to {
+    translate: 200% 0;
+  }
+}
+@keyframes qui-notify-fade {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes qui-roll-in-up {
+  from {
+    opacity: 0;
+    translate: 0 75%;
+  }
+}
+@keyframes qui-roll-in-down {
+  from {
+    opacity: 0;
+    translate: 0 -75%;
+  }
+}
+@keyframes qui-roll-out-up {
+  to {
+    opacity: 0;
+    translate: 0 -75%;
+  }
+}
+@keyframes qui-roll-out-down {
+  to {
+    opacity: 0;
+    translate: 0 75%;
+  }
+}
+@utility motion-notify {
+  &[data-arrive] {
+    animation: qui-notify-in 380ms var(--qui-ease-out) both;
+  }
+  &[data-leaving] {
+    animation: qui-notify-out var(--qui-duration-exit) var(--qui-ease-out) forwards;
+  }
+  & [data-trail="1"] {
+    animation: qui-notify-trail 260ms var(--qui-ease-out) 30ms both;
+  }
+  & [data-trail="2"] {
+    animation: qui-notify-trail 240ms var(--qui-ease-out) 70ms both;
+  }
+  & [data-halo] {
+    animation: qui-notify-halo 600ms var(--qui-ease-out) 120ms both;
+  }
+  & [data-splash] {
+    animation: qui-notify-splash 420ms var(--qui-ease-out) 170ms both;
+  }
+  & [data-gulp] {
+    animation: qui-notify-gulp 360ms var(--qui-ease-out);
+  }
+  & [data-sheen] {
+    animation: qui-notify-sheen 320ms var(--qui-ease-in-out) 280ms both;
+  }
+  & [data-roll="pop"] {
+    animation: qui-notify-pop 260ms var(--qui-ease-out) 160ms both;
+  }
+  & [data-roll="in"][data-dir="up"] {
+    animation: qui-roll-in-up var(--qui-duration-slow) var(--qui-ease-out) both;
+  }
+  & [data-roll="in"][data-dir="down"] {
+    animation: qui-roll-in-down var(--qui-duration-slow) var(--qui-ease-out) both;
+  }
+  & [data-roll="out"][data-dir="up"] {
+    animation: qui-roll-out-up var(--qui-duration-slow) var(--qui-ease-out) forwards;
+  }
+  & [data-roll="out"][data-dir="down"] {
+    animation: qui-roll-out-down var(--qui-duration-slow) var(--qui-ease-out) forwards;
+  }
+  :root[data-motion="reduced"] & {
+    &[data-arrive],
+    & [data-roll] {
+      animation: qui-notify-fade var(--qui-duration-base) var(--qui-ease-out) both;
+    }
+    & :is([data-trail], [data-halo], [data-splash], [data-sheen]) {
+      display: none;
+    }
+    & [data-gulp] {
+      animation: none;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    &[data-arrive],
+    & [data-roll] {
+      animation: qui-notify-fade var(--qui-duration-base) var(--qui-ease-out) both;
+    }
+    & :is([data-trail], [data-halo], [data-splash], [data-sheen]) {
+      display: none;
+    }
+    & [data-gulp] {
+      animation: none;
+    }
+  }
+}
+/* On the avatar: a small dip and rebound when a notification lands on it. */
+@utility motion-notify-host {
+  &:has(> [data-notify][data-arriving]) {
+    animation: qui-notify-receive 340ms var(--qui-ease-out);
+  }
+  :root[data-motion="reduced"] & {
+    animation: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}
+
 /* Shared focus ring, keyboard focus only. */
 @utility focus-ring {
   outline: 2px solid transparent;

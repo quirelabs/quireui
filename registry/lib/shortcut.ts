@@ -29,7 +29,13 @@ const keyNames: Record<string, [apple: string, other: string]> = {
   delete: ["⌦", "Del"],
   arrowup: ["↑", "↑"],
   arrowdown: ["↓", "↓"],
+  arrowleft: ["←", "←"],
+  arrowright: ["→", "→"],
+  tab: ["⇥", "Tab"],
+  space: ["Space", "Space"],
 };
+
+const keyName = (key: string, apple: boolean) => keyNames[key]?.[apple ? 0 : 1] ?? key.toUpperCase();
 
 const ariaKeyNames: Record<string, string> = {
   enter: "Enter",
@@ -45,9 +51,35 @@ export function useShortcutLabel(shortcut?: string) {
   const apple = useIsApple();
   if (!shortcut) return null;
   const { key, mod, shift, alt } = parse(shortcut);
-  const name = keyNames[key]?.[apple ? 0 : 1] ?? key.toUpperCase();
+  const name = keyName(key, apple);
   if (apple) return `${mod ? "⌘" : ""}${alt ? "⌥" : ""}${shift ? "⇧" : ""}${name}`;
   return [mod && "Ctrl", alt && "Alt", shift && "Shift", name].filter(Boolean).join("+");
+}
+
+/**
+ * The keys of a shortcut, one label each, for drawing them as separate caps: "mod+k" is
+ * ["⌘", "K"] on Apple devices and ["Ctrl", "K"] elsewhere.
+ */
+export function useShortcutKeys(shortcut?: string) {
+  const apple = useIsApple();
+  if (!shortcut) return [];
+  const { key, mod, shift, alt } = parse(shortcut);
+  const mods = apple
+    ? [mod && "⌘", alt && "⌥", shift && "⇧"]
+    : [mod && "Ctrl", alt && "Alt", shift && "Shift"];
+  return [...mods.filter((m): m is string => Boolean(m)), keyName(key, apple)];
+}
+
+/** Whether a keyboard event is exactly this shortcut, modifiers included. */
+export function matchesShortcut(event: KeyboardEvent, shortcut: string) {
+  const s = parse(shortcut);
+  const mod = isApple() ? event.metaKey : event.ctrlKey;
+  return (
+    event.key.toLowerCase() === (s.key === "space" ? " " : s.key) &&
+    mod === s.mod &&
+    event.shiftKey === s.shift &&
+    event.altKey === s.alt
+  );
 }
 
 /** Value for aria-keyshortcuts, e.g. "Meta+S" or "Control+S". */
@@ -74,8 +106,7 @@ export function useShortcut(shortcut: string | undefined, handler: () => void, e
     if (!shortcut || !enabled) return;
     const s = parse(shortcut);
     const onKeyDown = (e: KeyboardEvent) => {
-      const mod = isApple() ? e.metaKey : e.ctrlKey;
-      if (e.key.toLowerCase() !== s.key || mod !== s.mod || e.shiftKey !== s.shift || e.altKey !== s.alt) return;
+      if (!matchesShortcut(e, shortcut)) return;
       if (!s.mod && isTyping(e.target)) return;
       // A closer handler (e.g. a dialog submitting its form) already took this key.
       if (e.defaultPrevented) return;
