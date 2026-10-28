@@ -48,10 +48,22 @@
       "name": "shortcut",
       "type": "registry:lib",
       "title": "Shortcut",
-      "description": "Show and bind keyboard shortcuts: ⌘ on Apple devices, Ctrl elsewhere.",
+      "description": "Show and bind keyboard shortcuts: \u2318 on Apple devices, Ctrl elsewhere.",
       "files": [
         {
           "path": "registry/lib/shortcut.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "name": "dates",
+      "type": "registry:lib",
+      "title": "Dates",
+      "description": "Plain calendar dates as YYYY-MM-DD strings, month grids, and reading typed dates like \"next fri\" or \"last quarter\".",
+      "files": [
+        {
+          "path": "registry/lib/dates.ts",
           "type": "registry:lib"
         }
       ]
@@ -726,6 +738,29 @@
       "files": [
         {
           "path": "registry/ui/slider.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "date-picker",
+      "type": "registry:ui",
+      "title": "Date picker",
+      "description": "A date you can type or pick: it reads \"next fri\" or \"3/10\" as you type, with a calendar that moves by keyboard.",
+      "dependencies": [
+        "@phosphor-icons/react"
+      ],
+      "registryDependencies": [
+        "@quireui/foundation",
+        "@quireui/utils",
+        "@quireui/dates",
+        "@quireui/button",
+        "@quireui/input",
+        "@quireui/popover"
+      ],
+      "files": [
+        {
+          "path": "registry/ui/date-picker.tsx",
           "type": "registry:ui"
         }
       ]
