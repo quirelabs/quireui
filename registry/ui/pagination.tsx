@@ -136,7 +136,7 @@ export function Pagination({
             <PageInput page={current} count={count} onCommit={go} />
             {loading && <LoadingLine className="inset-x-1.5 -bottom-1" />}
           </span>
-          of <span className="nums text-fg">{count.toLocaleString()}</span>
+          of <span className="nums text-fg">{count.toLocaleString("en-US")}</span>
         </span>
         {next}
       </nav>
@@ -173,7 +173,7 @@ export function Pagination({
             // Keyed by position, so focus stays in place while the numbers change.
             // biome-ignore lint/suspicious/noArrayIndexKey: slots are positions, not items
             <span key={i} className="contents">
-              {link(slot, slot.toLocaleString(), item, {
+              {link(slot, slot.toLocaleString("en-US"), item, {
                 "aria-current": slot === current ? "page" : undefined,
                 "aria-label": `Page ${slot}`,
                 "data-page": slot,
@@ -253,9 +253,9 @@ export function PaginationSummary({
       {...props}
     >
       <span className="text-fg">
-        {from.toLocaleString()}–{to.toLocaleString()}
+        {from.toLocaleString("en-US")}–{to.toLocaleString("en-US")}
       </span>{" "}
-      of {total.toLocaleString()}
+      of {total.toLocaleString("en-US")}
       {noun ? ` ${noun}` : ""}
     </p>
   );

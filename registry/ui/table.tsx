@@ -22,7 +22,8 @@ const inset = cn(
 // cell would let the rows scrolling beneath it show through its corners.
 const solid = cn(
   "border-(--table-bg) bg-(--table-bg) first:border-l-[0.375rem] last:border-r-[0.375rem]",
-  "before:absolute before:inset-0 before:-z-10",
+  // Each band reaches a pixel under its neighbours, so fractional screen scales never leave a seam.
+  "before:absolute before:inset-0 before:-z-10 not-first:before:-left-px not-last:before:-right-px",
 );
 const roundEnds = "first:before:rounded-l-control last:before:rounded-r-control";
 

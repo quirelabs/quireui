@@ -31,7 +31,7 @@ export type SliderProps = Omit<
   snap?: "settle" | "live";
 };
 
-const plain = (value: number) => value.toLocaleString();
+const plain = (value: number) => value.toLocaleString("en-US");
 const asList = (value: Value) => (typeof value === "number" ? [value] : [...value]);
 const same = (a: Value, b: Value) => asList(a).join() === asList(b).join();
 
