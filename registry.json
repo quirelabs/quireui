@@ -413,6 +413,26 @@
       ]
     },
     {
+      "name": "multi-select",
+      "type": "registry:ui",
+      "title": "Multi-select",
+      "description": "Pick several from a list you search: results can load as you type, a pasted list adds every match, and the field keeps one line at rest.",
+      "dependencies": [
+        "@base-ui/react",
+        "@phosphor-icons/react"
+      ],
+      "registryDependencies": [
+        "@quireui/foundation",
+        "@quireui/utils"
+      ],
+      "files": [
+        {
+          "path": "registry/ui/multi-select.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "checkbox",
       "type": "registry:ui",
       "title": "Checkbox",

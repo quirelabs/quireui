@@ -2,7 +2,7 @@
 
 import { Combobox as BaseCombobox } from "@base-ui/react/combobox";
 import { CaretUpDownIcon, CheckIcon, XIcon } from "@phosphor-icons/react/ssr";
-import { type ComponentProps, createContext, type ReactNode, use } from "react";
+import { type ComponentProps, createContext, type ReactNode, use, useState } from "react";
 import { cn } from "@/registry/lib/cn";
 
 // Same heights as Button, Input and Select, so a combobox sits flush in a form row.
@@ -27,6 +27,11 @@ const itemText = {
 
 type Size = keyof typeof sizes;
 const SizeContext = createContext<Size>("md");
+// The chips field, when there is one, so the list lines up with the whole field and not just the input.
+const ChipsContext = createContext<{ field: HTMLDivElement | null; setField: (field: HTMLDivElement | null) => void }>({
+  field: null,
+  setField: () => {},
+});
 
 export function Combobox<Value, Multiple extends boolean | undefined = false>({
   size = "md",
@@ -36,16 +41,29 @@ export function Combobox<Value, Multiple extends boolean | undefined = false>({
   /** Field and list size; follows the density tokens. Defaults to md. */
   size?: Size;
 }) {
+  const [field, setField] = useState<HTMLDivElement | null>(null);
   return (
     <SizeContext value={size}>
-      {/* The first match is highlighted while typing, so typing and Enter picks it. */}
-      <BaseCombobox.Root autoHighlight={autoHighlight} {...props} />
+      <ChipsContext value={{ field, setField }}>
+        {/* The first match is highlighted while typing, so typing and Enter picks it. */}
+        <BaseCombobox.Root autoHighlight={autoHighlight} {...props} />
+      </ChipsContext>
     </SizeContext>
   );
 }
 
 export const ComboboxGroup = BaseCombobox.Group;
 export const ComboboxCollection = BaseCombobox.Collection;
+
+// Styled like Input, so forms read as one set of fields. Invalid wins over focus, so the error
+// stays visible while it is being fixed.
+const field = cn(
+  "motion-control flex w-full min-w-0 cursor-text items-center rounded-control border border-border-strong bg-surface text-fg",
+  "hover:border-fg-subtle focus-within:border-ring focus-within:ring-1 focus-within:ring-ring",
+  "has-[[data-invalid]]:border-danger has-[[data-invalid]]:focus-within:border-danger has-[[data-invalid]]:focus-within:ring-danger",
+  "data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50",
+  "[&_svg]:size-4 [&_svg]:shrink-0",
+);
 
 /** The field: a text input with a clear button once something is chosen, and a list toggle. */
 export function ComboboxInput({
@@ -58,20 +76,7 @@ export function ComboboxInput({
 }) {
   const size = use(SizeContext);
   return (
-    <BaseCombobox.InputGroup
-      data-slot="combobox"
-      className={cn(
-        // Styled like Input, so forms read as one set of fields.
-        "motion-control flex w-full min-w-0 cursor-text items-center rounded-control border border-border-strong bg-surface text-fg",
-        "hover:border-fg-subtle focus-within:border-ring focus-within:ring-1 focus-within:ring-ring",
-        // Invalid wins over focus, so the error stays visible while it is being fixed.
-        "has-[[data-invalid]]:border-danger has-[[data-invalid]]:focus-within:border-danger has-[[data-invalid]]:focus-within:ring-danger",
-        "data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50",
-        "[&_svg]:size-4 [&_svg]:shrink-0",
-        sizes[size],
-        className,
-      )}
-    >
+    <BaseCombobox.InputGroup data-slot="combobox" className={cn(field, sizes[size], className)}>
       {leading && <span className="flex items-center text-fg-subtle">{leading}</span>}
       <BaseCombobox.Input
         className="h-full w-full min-w-0 bg-transparent outline-none placeholder:text-fg-subtle pointer-coarse:text-base"
@@ -93,6 +98,74 @@ export function ComboboxInput({
   );
 }
 
+// A chosen item's text: the item itself when it is a string, otherwise its `label`.
+const labelOf = (value: unknown) =>
+  typeof value === "string" ? value : String((value as { label?: unknown })?.label ?? value);
+
+/**
+ * The field for a `multiple` combobox: a chip for each chosen item, then the input. Backspace in
+ * the empty input removes the last chip, and the arrow keys move between chips.
+ */
+export function ComboboxChips({
+  className,
+  placeholder,
+  chip = labelOf,
+  removeLabel = (label) => `Remove ${label}`,
+  ...props
+}: ComponentProps<typeof BaseCombobox.Input> & {
+  /** What a chip shows for a chosen item. Defaults to the item, or its `label`. */
+  chip?: (value: never) => ReactNode;
+  /** Names each chip's remove button, for other languages. */
+  removeLabel?: (label: string) => string;
+}) {
+  const size = use(SizeContext);
+  return (
+    <BaseCombobox.Chips
+      ref={use(ChipsContext).setField}
+      data-slot="combobox"
+      className={cn(
+        field,
+        sizes[size],
+        // Grows a line at a time as chips are added; chips sit 4px inside the border.
+        "h-auto min-h-(--qui-control-h) flex-wrap gap-1 py-1 pl-1",
+        className,
+      )}
+    >
+      <BaseCombobox.Value>
+        {(value: unknown[]) => (
+          <>
+            {value.map((item) => (
+              <BaseCombobox.Chip
+                key={labelOf(item)}
+                data-slot="combobox-chip"
+                className="focus-ring flex h-[calc(var(--qui-control-h)-0.5rem-2px)] min-w-0 items-center gap-1 rounded-[calc(var(--radius-control)-0.25rem)] bg-surface-active pr-0.5 pl-2 text-[calc(var(--qui-text)-0.0625rem)] outline-none"
+              >
+                <span className="truncate">{chip(item as never)}</span>
+                <BaseCombobox.ChipRemove
+                  aria-label={removeLabel(labelOf(item))}
+                  className="motion-control grid size-5 place-items-center rounded-sm text-fg-subtle hover:bg-surface-hover hover:text-fg [&_svg]:size-3"
+                >
+                  <XIcon />
+                </BaseCombobox.ChipRemove>
+              </BaseCombobox.Chip>
+            ))}
+            <BaseCombobox.Input
+              placeholder={value.length ? undefined : placeholder}
+              // Esc with the list closed would clear every chip; one stray key should not undo all of that.
+              onKeyDown={(event) => {
+                if (event.key === "Escape" && event.currentTarget.getAttribute("aria-expanded") !== "true")
+                  event.preventBaseUIHandler();
+              }}
+              className="h-[calc(var(--qui-control-h)-0.5rem-2px)] min-w-16 flex-1 bg-transparent pl-1 outline-none placeholder:text-fg-subtle pointer-coarse:text-base"
+              {...props}
+            />
+          </>
+        )}
+      </BaseCombobox.Value>
+    </BaseCombobox.Chips>
+  );
+}
+
 type PositionerProps = Pick<ComponentProps<typeof BaseCombobox.Positioner>, "side" | "align" | "sideOffset">;
 
 export function ComboboxContent({
@@ -110,9 +183,16 @@ export function ComboboxContent({
     /** Shown when nothing matches what was typed. */
     empty?: ReactNode;
   }) {
+  const chips = use(ChipsContext);
   return (
     <BaseCombobox.Portal>
-      <BaseCombobox.Positioner side={side} align={align} sideOffset={sideOffset} className="z-50 outline-none">
+      <BaseCombobox.Positioner
+        anchor={chips.field ?? undefined}
+        side={side}
+        align={align}
+        sideOffset={sideOffset}
+        className="z-50 outline-none"
+      >
         <BaseCombobox.Popup
           data-slot="combobox-content"
           className={cn(
