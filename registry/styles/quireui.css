@@ -389,6 +389,38 @@
 }
 
 /*
+ * Pages that turn (calendar months): the new page fades in from the side it came from, set by
+ * data-direction="next" or "prev". Key the element by its page so it mounts fresh; with no
+ * direction it just appears. Instant from the keyboard; reduced motion keeps the fade.
+ */
+@utility motion-page {
+  transition-property: opacity, translate;
+  transition-duration: var(--qui-duration-base);
+  transition-timing-function: var(--qui-ease-out);
+  &[data-direction="next"] {
+    @starting-style {
+      opacity: 0;
+      translate: 8px 0;
+    }
+  }
+  &[data-direction="prev"] {
+    @starting-style {
+      opacity: 0;
+      translate: -8px 0;
+    }
+  }
+  :root[data-input="keyboard"] & {
+    transition-duration: 0ms;
+  }
+  :root[data-motion="reduced"] & {
+    transition-property: opacity;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    transition-property: opacity;
+  }
+}
+
+/*
  * Content that swaps in place (tab panels): a quick fade with a 4px shift from the side the
  * user moved towards, set by Base UI's data-activation-direction. Reduced motion keeps the fade.
  */

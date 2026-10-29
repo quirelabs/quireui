@@ -37,6 +37,7 @@ The core ships with **no JS animation library**. Two opt-in exceptions, never re
 | `motion-control` | Hover and press colour feedback on controls. |
 | `motion-swap` | Label swaps inside a control. Stack the states in one grid cell and mark inactive ones `data-swap="out"`, so the width never changes. |
 | `motion-message` | Messages appearing under a control, like field errors. A short fade and drop. |
+| `motion-page` | Pages that turn, like calendar months. The new page fades in from the side it came from. |
 
 ## 2. Speed
 

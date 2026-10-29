@@ -24,7 +24,8 @@ import { Button } from "@/registry/ui/button";
 import { Input } from "@/registry/ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "@/registry/ui/popover";
 
-export type { DateRange, PlainDate } from "@/registry/lib/dates";
+// Re-exported from the import above: the CLI rewrites lib paths in imports, not in `export from`.
+export type { DateRange, PlainDate };
 
 // Dates are built at noon UTC and formatted in UTC, so no timezone can tip them into another day.
 const asDate = (date: PlainDate) => {
@@ -70,6 +71,8 @@ export type CalendarProps = {
   onFocusedChange: (date: PlainDate) => void;
   /** What is chosen: one day, or a range. */
   selected?: DateRange | null;
+  /** A second range to show alongside, like the period a report is compared with. It gets a line under its days. */
+  compared?: DateRange | null;
   /** Called with the day that was clicked, or chosen with Enter. */
   onPick: (date: PlainDate) => void;
   /** Called with the day under the pointer, so a range can preview where it would end. */
@@ -103,6 +106,7 @@ export function Calendar({
   focused,
   onFocusedChange,
   selected,
+  compared,
   onPick,
   onHover,
   today,
@@ -127,6 +131,9 @@ export function Calendar({
     long: formatter(locale, { weekday: "long" }).format(asDate(day)),
   }));
   const shown = Array.from({ length: months }, (_, i) => addMonths(startOfMonth(month), i));
+  // Which way the last page turn went, so the new months come in from that side.
+  const [turned, setTurned] = useState<{ from: PlainDate; direction?: "next" | "prev" }>({ from: month });
+  if (month !== turned.from) setTurned({ from: month, direction: month > turned.from ? "next" : "prev" });
   const disabled = (date: PlainDate) =>
     (min !== undefined && date < min) || (max !== undefined && date > max) || !!isDateDisabled?.(date);
 
@@ -165,11 +172,14 @@ export function Calendar({
   };
 
   const inRange = (date: PlainDate) => !!selected && date >= selected.from && date <= selected.to;
+  const inCompared = (date: PlainDate) => !!compared && date >= compared.from && date <= compared.to;
 
   return (
     <div ref={ref} data-slot="calendar" className="flex gap-6">
       {shown.map((first, index) => (
-        <div key={first} className="flex flex-col gap-2">
+        // Keyed by position, so the month buttons keep focus while the title and grid turn.
+        // biome-ignore lint/suspicious/noArrayIndexKey: the slot is the identity here, not the month
+        <div key={index} className="flex flex-col gap-2">
           <div className="flex h-7 items-center justify-between">
             {index === 0 ? (
               <Button
@@ -185,7 +195,12 @@ export function Calendar({
             ) : (
               <span className="size-7" />
             )}
-            <p aria-live="polite" className="text-[calc(var(--qui-text)-0.0625rem)] font-medium">
+            <p
+              key={first}
+              aria-live="polite"
+              data-direction={turned.direction}
+              className="motion-page text-[calc(var(--qui-text)-0.0625rem)] font-medium"
+            >
               {title.format(asDate(first))}
             </p>
             {index === shown.length - 1 ? (
@@ -204,11 +219,13 @@ export function Calendar({
             )}
           </div>
           <table
+            key={first}
+            data-direction={turned.direction}
             // biome-ignore lint/a11y/noNoninteractiveElementToInteractiveRole: the ARIA date picker pattern, a grid table whose day buttons move focus
             role="grid"
             aria-label={title.format(asDate(first))}
             onKeyDown={onKeyDown}
-            className="border-separate border-spacing-y-0.5"
+            className="motion-page border-separate border-spacing-y-0.5"
           >
             <thead>
               <tr>
@@ -235,6 +252,7 @@ export function Calendar({
                     const end = selected?.to === date;
                     const between = inRange(date);
                     const off = disabled(date);
+                    const was = inCompared(date);
                     return (
                       // biome-ignore lint/a11y/useAriaPropsSupportedByRole: inside a grid a td is a gridcell, which takes aria-selected
                       <td
@@ -252,6 +270,11 @@ export function Calendar({
                             "before:inset-x-0 first:before:rounded-l-control last:before:rounded-r-control",
                           start && !end && "before:right-0 before:left-1/2",
                           end && !start && "before:right-1/2 before:left-0",
+                          // The compared range is a line under its days, so both ranges read at once.
+                          was &&
+                            "after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 after:bg-fg-subtle after:content-[''] first:after:rounded-l-full last:after:rounded-r-full",
+                          was && compared?.from === date && "after:left-1 after:rounded-l-full",
+                          was && compared?.to === date && "after:right-1 after:rounded-r-full",
                         )}
                       >
                         <button
