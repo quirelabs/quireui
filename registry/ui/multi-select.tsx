@@ -127,7 +127,7 @@ function marked(label: string, query: string) {
 }
 
 const chipClass =
-  "focus-ring flex h-[calc(var(--qui-control-h)-0.5rem-2px)] max-w-48 min-w-0 shrink-0 items-center gap-1 rounded-[calc(var(--radius-control)-0.25rem)] bg-surface-active pr-0.5 pl-1.5 text-[calc(var(--qui-text)-0.0625rem)] outline-none [&_svg]:size-3.5";
+  "focus-ring flex h-[calc(var(--qui-control-h)-0.5rem-2px)] max-w-48 min-w-0 shrink-0 items-center gap-1 rounded-[calc(var(--radius-control)-0.25rem)] bg-surface-active pr-0.5 pl-1.5 text-[calc(var(--qui-text)-0.0625rem)] [&_svg]:size-3.5";
 
 /**
  * Picks several things from a list you search, like people or labels. Results can load as you

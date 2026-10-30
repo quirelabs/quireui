@@ -421,6 +421,29 @@
 }
 
 /*
+ * Items that slide to a new place when a list reorders (kanban cards). Set the old offset as
+ * translate with data-flip on, then remove both: the item eases from where it was. Instant from
+ * the keyboard; reduced motion jumps.
+ */
+@utility motion-reorder {
+  transition-property: translate;
+  transition-duration: var(--qui-duration-base);
+  transition-timing-function: var(--qui-ease-out);
+  &[data-flip] {
+    transition-duration: 0ms;
+  }
+  :root[data-input="keyboard"] & {
+    transition-duration: 0ms;
+  }
+  :root[data-motion="reduced"] & {
+    transition-duration: 0ms;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    transition-duration: 0ms;
+  }
+}
+
+/*
  * Content that swaps in place (tab panels): a quick fade with a 4px shift from the side the
  * user moved towards, set by Base UI's data-activation-direction. Reduced motion keeps the fade.
  */

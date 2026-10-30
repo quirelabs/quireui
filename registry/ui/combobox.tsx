@@ -138,7 +138,7 @@ export function ComboboxChips({
               <BaseCombobox.Chip
                 key={labelOf(item)}
                 data-slot="combobox-chip"
-                className="focus-ring flex h-[calc(var(--qui-control-h)-0.5rem-2px)] min-w-0 items-center gap-1 rounded-[calc(var(--radius-control)-0.25rem)] bg-surface-active pr-0.5 pl-2 text-[calc(var(--qui-text)-0.0625rem)] outline-none"
+                className="focus-ring flex h-[calc(var(--qui-control-h)-0.5rem-2px)] min-w-0 items-center gap-1 rounded-[calc(var(--radius-control)-0.25rem)] bg-surface-active pr-0.5 pl-2 text-[calc(var(--qui-text)-0.0625rem)]"
               >
                 <span className="truncate">{chip(item as never)}</span>
                 <BaseCombobox.ChipRemove
