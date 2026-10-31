@@ -45,6 +45,8 @@ for (const file of sources.filter((f) => /\.tsx?$/.test(f))) {
   }
   if (/from "@phosphor-icons\/react"/.test(text)) fail(file, 'imports icons from "@phosphor-icons/react"; use "/ssr"');
   if (/\bTODO\b/.test(text)) fail(file, "still has a TODO from the scaffold");
+  // The shadcn CLI rewrites imports, not re-exports, so these reach users as a path that does not exist.
+  if (/^export\s[^;]*?\sfrom\s+"@\/registry/m.test(text)) fail(file, 're-exports from "@/registry"; import it, then export it');
 
   lines.forEach((line, i) => {
     if (/^\s*(\/\/|\*|\/\*)/.test(line)) return;

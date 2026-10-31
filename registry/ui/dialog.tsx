@@ -87,7 +87,12 @@ export type DialogProps = ComponentProps<typeof BaseDialog.Root> & {
   dirtyMessage?: ReactNode;
 };
 
-export function Dialog({ dirty = false, dirtyMessage = "Discard unsaved changes?", onOpenChange, ...props }: DialogProps) {
+export function Dialog({
+  dirty = false,
+  dirtyMessage = "Discard unsaved changes?",
+  onOpenChange,
+  ...props
+}: DialogProps) {
   const { actionsRef, handleOpenChange, guard, GuardProvider } = useCloseGuard<BaseDialog.Root.ChangeEventDetails>({
     dirty,
     message: dirtyMessage,
@@ -125,8 +130,8 @@ export function DialogContent({
 }) {
   return (
     <BaseDialog.Portal>
-      <BaseDialog.Backdrop className="motion-fade fixed inset-0 bg-backdrop" />
-      <BaseDialog.Viewport className="fixed inset-0 grid place-items-center p-4">
+      <BaseDialog.Backdrop className="motion-fade fixed inset-0 z-50 bg-backdrop" />
+      <BaseDialog.Viewport className="fixed inset-0 z-50 grid place-items-center p-4">
         <BaseDialog.Popup
           data-slot="dialog"
           onKeyDown={(event) => {

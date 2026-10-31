@@ -18,8 +18,8 @@ export function AlertDialogContent({ className, children, ...props }: ComponentP
   const cancelRef = useRef<HTMLButtonElement>(null);
   return (
     <BaseAlertDialog.Portal>
-      <BaseAlertDialog.Backdrop className="motion-fade fixed inset-0 bg-backdrop" />
-      <BaseAlertDialog.Viewport className="fixed inset-0 grid place-items-center p-4">
+      <BaseAlertDialog.Backdrop className="motion-fade fixed inset-0 z-50 bg-backdrop" />
+      <BaseAlertDialog.Viewport className="fixed inset-0 z-50 grid place-items-center p-4">
         <BaseAlertDialog.Popup
           data-slot="alert-dialog"
           initialFocus={cancelRef}
@@ -50,7 +50,11 @@ export function AlertDialogFooter({ className, ...props }: ComponentProps<"div">
 
 export function AlertDialogCancel({ children = "Cancel", ...props }: ComponentProps<typeof Button>) {
   const ref = use(CancelRef);
-  return <BaseAlertDialog.Close ref={ref} render={<Button variant="ghost" {...props} />}>{children}</BaseAlertDialog.Close>;
+  return (
+    <BaseAlertDialog.Close ref={ref} render={<Button variant="ghost" {...props} />}>
+      {children}
+    </BaseAlertDialog.Close>
+  );
 }
 
 /** Runs onClick, then closes. Danger by default, since that is what alert dialogs are for. */

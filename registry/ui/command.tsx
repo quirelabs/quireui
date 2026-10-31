@@ -24,10 +24,7 @@ export type CommandGroup = { heading: string; items: CommandItem[] };
 function matches(item: CommandItem, query: string) {
   const q = query.trim().toLowerCase();
   if (!q) return true;
-  return (
-    item.label.toLowerCase().includes(q) ||
-    (item.keywords?.some((k) => k.toLowerCase().includes(q)) ?? false)
-  );
+  return item.label.toLowerCase().includes(q) || (item.keywords?.some((k) => k.toLowerCase().includes(q)) ?? false);
 }
 
 export type CommandProps = {
@@ -133,13 +130,7 @@ export type CommandPaletteProps = Omit<CommandProps, "onRun" | "inputRef"> & {
   hotkey?: string | null;
 };
 
-export function CommandPalette({
-  open,
-  onOpenChange,
-  hotkey = "k",
-  className,
-  ...commandProps
-}: CommandPaletteProps) {
+export function CommandPalette({ open, onOpenChange, hotkey = "k", className, ...commandProps }: CommandPaletteProps) {
   // The shared helper, so the palette follows the same per-platform rule as every other shortcut.
   useShortcut(hotkey ? `mod+${hotkey}` : undefined, () => {
     onOpenChange(!open);
@@ -148,9 +139,9 @@ export function CommandPalette({
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
       <Dialog.Portal>
-        <Dialog.Backdrop className="motion-fade fixed inset-0 bg-backdrop" />
+        <Dialog.Backdrop className="motion-fade fixed inset-0 z-50 bg-backdrop" />
         {/* Anchored near the top: the list grows downward and the input never moves. */}
-        <Dialog.Viewport className="fixed inset-0 flex items-start justify-center px-3 pt-[12vh]">
+        <Dialog.Viewport className="fixed inset-0 z-50 flex items-start justify-center px-3 pt-[12vh]">
           <Dialog.Popup
             aria-label="Command palette"
             className={cn(

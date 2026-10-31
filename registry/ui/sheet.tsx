@@ -2,9 +2,9 @@
 
 import { Drawer } from "@base-ui/react/drawer";
 import { XIcon } from "@phosphor-icons/react/ssr";
-import { type CSSProperties, type ComponentProps, createContext, type ReactNode, use, useRef } from "react";
+import { type ComponentProps, type CSSProperties, createContext, type ReactNode, use, useRef } from "react";
 import { cn } from "@/registry/lib/cn";
-import { CloseGuardBar, useCloseGuard } from "@/registry/ui/dialog";
+import { CloseGuardBar, DialogBody, DialogFooter, DialogForm, DialogHeader, useCloseGuard } from "@/registry/ui/dialog";
 
 type Side = "right" | "left" | "bottom";
 const SideContext = createContext<Side>("right");
@@ -34,7 +34,12 @@ export function Sheet({
   return (
     <GuardProvider value={guard}>
       <SideContext value={side}>
-        <Drawer.Root swipeDirection={side === "bottom" ? "down" : side} actionsRef={actionsRef} onOpenChange={handleOpenChange} {...props} />
+        <Drawer.Root
+          swipeDirection={side === "bottom" ? "down" : side}
+          actionsRef={actionsRef}
+          onOpenChange={handleOpenChange}
+          {...props}
+        />
       </SideContext>
     </GuardProvider>
   );
@@ -64,8 +69,8 @@ export function SheetContent({
   const popupRef = useRef<HTMLDivElement>(null);
   return (
     <Drawer.Portal>
-      <Drawer.Backdrop className="motion-fade fixed inset-0 bg-backdrop" />
-      <Drawer.Viewport className={cn("fixed inset-0 flex", l.viewport)}>
+      <Drawer.Backdrop className="motion-fade fixed inset-0 z-50 bg-backdrop" />
+      <Drawer.Viewport className={cn("fixed inset-0 z-50 flex", l.viewport)}>
         <Drawer.Popup
           ref={popupRef}
           data-slot="sheet"
@@ -114,7 +119,7 @@ export function SheetContent({
   );
 }
 
-export { DialogBody as SheetBody, DialogFooter as SheetFooter, DialogForm as SheetForm, DialogHeader as SheetHeader } from "@/registry/ui/dialog";
+export { DialogBody as SheetBody, DialogFooter as SheetFooter, DialogForm as SheetForm, DialogHeader as SheetHeader };
 
 export function SheetTitle({ className, ...props }: ComponentProps<typeof Drawer.Title>) {
   return <Drawer.Title className={cn("text-base font-semibold", className)} {...props} />;
