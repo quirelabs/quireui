@@ -48,7 +48,7 @@
       "name": "shortcut",
       "type": "registry:lib",
       "title": "Shortcut",
-      "description": "Show and bind keyboard shortcuts: \u2318 on Apple devices, Ctrl elsewhere.",
+      "description": "Show and bind keyboard shortcuts: ⌘ on Apple devices, Ctrl elsewhere.",
       "files": [
         {
           "path": "registry/lib/shortcut.ts",
@@ -781,6 +781,31 @@
       "files": [
         {
           "path": "registry/ui/date-picker.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "sidebar",
+      "type": "registry:ui",
+      "title": "Sidebar",
+      "description": "App navigation that collapses to a rail you can peek open, resizes by drag or keys, and restores its saved state before the first paint, with no server code.",
+      "dependencies": [
+        "@base-ui/react",
+        "@phosphor-icons/react",
+        "react-dom"
+      ],
+      "registryDependencies": [
+        "@quireui/button",
+        "@quireui/sheet",
+        "@quireui/skeleton",
+        "@quireui/shortcut",
+        "@quireui/foundation",
+        "@quireui/utils"
+      ],
+      "files": [
+        {
+          "path": "registry/ui/sidebar.tsx",
           "type": "registry:ui"
         }
       ]
